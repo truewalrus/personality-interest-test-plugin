@@ -39,8 +39,8 @@
 	if ($_POST['ptest_hidden'] == 'Y'){
 		$question = $_POST['ptest_question'];
 		$answers = array($_POST['ptest_answer_0'], $_POST['ptest_answer_1'], $_POST['ptest_answer_2']);
-		$qId = ptest_insert_question($question);
-		ptest_insert_answer($qId, $answers);
+		$question_id = ptest_insert_question($question);
+		ptest_insert_answer($question_id, $answers);
 		
 	}
 ?>
