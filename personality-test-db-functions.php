@@ -93,7 +93,7 @@ function ptest_delete_quiz($quiz_id){
 	$id_list = $wpdb->get_results("SELECT id FROM " . $wpdb->prefix . "ptest_questions" . " WHERE id =" . $quiz_id );
 	foreach ($id_list as $id){
 		//delete the answers of that question
-		$wpdb->delete($wpdb->prefix . "ptest_answers", array('question_id' => $id);
+		$wpdb->delete($wpdb->prefix . "ptest_answers", array('question_id' => $id));
 	}
 	//delete the questions from the quiz
 	$wpdb->delete($wpdb->prefix . "ptest_questions", array('quiz_id' => $quiz_id));
@@ -116,18 +116,18 @@ function ptest_delete_question($question_id){
 	global $wpdb;
 	
 	//delete the answers of the question
-	$wpdb->delete($wpdb->prefix . "ptest_answers", array('question_id' => $question_id);
+	$wpdb->delete($wpdb->prefix . "ptest_answers", array('question_id' => $question_id));
 	//delete the question
-	$wpdb->delete($wpdb->prefix . "ptest_questions", array('id' => $question_id);
+	$wpdb->delete($wpdb->prefix . "ptest_questions", array('id' => $question_id));
 }
 
 /*Delete an answer from the database
 Requires: $answer_id: id of question to delete*/
-function ptest_delete answer($answer_id){
+function ptest_delete_answer($answer_id){
 	
 	global $wpdb;
 	
-	$wpdb->delete($wpdb->prefix . "ptest_answers", array('id' => $answer_id);
+	$wpdb->delete($wpdb->prefix . "ptest_answers", array('id' => $answer_id));
 }
 
 ///////////////////////////////////////////////////////////////////Updates///////////////////////////////////////////////////////////////
@@ -144,7 +144,7 @@ function ptest_update_quiz($quiz_id, $name){
 
 	global $wpdb;
 	
-	$wpdb->update($wpdb->prefix . "ptest_quizzes", array('name' => $name), array('id' => $quiz_id);
+	$wpdb->update($wpdb->prefix . "ptest_quizzes", array('name' => $name), array('id' => $quiz_id));
 }
 
 /*Change the info in a result
@@ -155,7 +155,7 @@ function ptest_update_result($result_id, $updated_result){
 	
 	$data = array('name'=>$result["name"], 'tags'=>$result["tags"], 'quiz_id'=>$quiz_id);
 	
-	$wpdb->update($wpdb->prefix . "ptest_results", $data, array('id' => $result_id);
+	$wpdb->update($wpdb->prefix . "ptest_results", $data, array('id' => $result_id));
 }
 
 /*Change the question to a new question
@@ -166,7 +166,7 @@ function ptest_update_question($question_id, $question){
 	
 	$data = array('question'=>$question);
 	
-	$wpdb->update($wpdb->prefix . "ptest_questions", array('question'=>$question), array('id'=>$question_id);
+	$wpdb->update($wpdb->prefix . "ptest_questions", array('question'=>$question), array('id'=>$question_id));
 }
 
 /*Change the answers to a question
@@ -183,7 +183,7 @@ function ptest_update_answers($question_id, $answers){
 			$answer["value"] = 0;
 		}
 		$data = array('question_id'=>$question_id, 'answer'=>$answer["answer"], 'value'=>$answer["value"], 'tags'=>$answer["tags"]);
-		$wpdb->update($wpdb->prefix . "ptest_answers", $data, array('question_id'=>$question_id);
+		$wpdb->update($wpdb->prefix . "ptest_answers", $data, array('question_id'=>$question_id));
 	}
 }
 ?>
