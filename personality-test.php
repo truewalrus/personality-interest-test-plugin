@@ -15,15 +15,9 @@
     }  
       
     function ptest_admin_actions() {  
-        add_menu_page("Personaliy Test", "Personality Test", 'manage_options', "Personality_Test", "ptest_admin");
+        add_menu_page("Personality Test", "Personality Test", 'manage_options', "Personality_Test", "ptest_admin");
     }  
     add_action('admin_menu', 'ptest_admin_actions');
-	
-	
-	function ptest_shortcode($atts){
-		include('personality-test-main.php');
-	}
-	add_shortcode( 'testpt', 'ptest_shortcode');
 	
 	function ptest_database_init(){
 
@@ -73,6 +67,20 @@
 		dbDelta($answers_sql);
 		
 	}
+	
+	function ptest_shortcode( $atts ) {
+		extract( shortcode_atts( array(
+			'id' => '0',
+			'submit' => ''
+			), $atts ) );
+	
+		$_POST['ptest_id'] = $id;
+		$_POST['ptest_submit'] = $submit;
+	
+		include( 'personality-test-frontend.php' );
+	}
+	
 	register_activation_hook( __FILE__, 'ptest_database_init');
+	add_shortcode( 'ptest', 'ptest_shortcode' );
 
 ?>
