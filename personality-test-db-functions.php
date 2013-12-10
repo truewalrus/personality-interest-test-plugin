@@ -19,7 +19,7 @@ function ptest_insert_result($result){
 	
 	global $wpdb;
 	
-	$data = array('name'=>$result["name"], 'tags' = $result["tags"], 'quiz_id' = $result["quiz_id"];
+	$data = array('name'=>$result["name"], 'tags' => $result["tags"], 'quiz_id' => $result["quiz_id"]);
 	
 	$wpdb->insert($wpdb->prefix . "ptest_results", $data);
 	
