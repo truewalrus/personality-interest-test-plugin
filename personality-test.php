@@ -30,7 +30,7 @@
 		global $wpdb;
 		global $quiz_table;
 		
-		$quiz_table = $wpdb->prefix . "ptext_quizzes";
+		$quiz_table = $wpdb->prefix . "ptest_quizzes";
 		$results_table = $wpdb->prefix . "ptest_results";
 		$questions_table = $wpdb->prefix . "ptest_questions";
 		$answers_table = $wpdb->prefix . "ptest_answers";
