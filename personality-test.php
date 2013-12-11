@@ -22,8 +22,7 @@
 	function ptest_database_init(){
 
 		global $wpdb;
-		global $quiz_table;
-		
+
 		$quiz_table = $wpdb->prefix . "ptest_quizzes";
 		$results_table = $wpdb->prefix . "ptest_results";
 		$questions_table = $wpdb->prefix . "ptest_questions";
