@@ -12,12 +12,21 @@
 	
 	function ptest_admin() {  
         include('personality-test-main.php');  
-    }  
+    } 
+
+	function ptest_quiz_main(){
+		include('personality-test-quiz-main.php');
+	}
       
     function ptest_admin_actions() {  
         add_menu_page("Personality Test", "Personality Test", 'manage_options', "Personality_Test", "ptest_admin");
     }  
     add_action('admin_menu', 'ptest_admin_actions');
+	
+	function ptest_quiz_main_actions() {
+		add_submenu_page("Personality_Test", "Test List", "Test List", 'manage_options', "Test", "ptest_quiz_main");
+	}
+	add_action('admin_menu', 'ptest_quiz_main_actions');
 	
 	function ptest_database_init(){
 
