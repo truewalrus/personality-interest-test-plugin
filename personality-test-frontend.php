@@ -34,9 +34,59 @@
 	<h1>RESULTS</h1>
 	
 	<?php $answers = $_POST['ptest_answer'];
+		$answer_sql = "SELECT * FROM {$wpdb->prefix}ptest_answers WHERE id IN (";
+		
 		$answer_count = count($answers);
+		$started = false;
+		
+		$answer_keys = array_keys( $answers );
 		for( $i = 0; $i < $answer_count; $i++ ) {
-			echo "<br>" . $answers[$i];
+			if( $i > 0 ) {
+				$answer_sql .= ", ";
+			}
+			$answer_sql .= $answers[$answer_keys[$i]];
+		}
+		$answer_sql .= ")";
+		
+		$answer_results = $wpdb->get_results($answer_sql);
+		
+		$results = array( );
+		
+		foreach( $answer_results as $answer ) {
+			$tags = array ( );
+			
+			if( !empty( $answer->tag ) ) {
+				$tags = explode(',', $answer->tag);	
+			}
+			
+			$tag_count = count($tags);
+			for( $i = 0; $i < $tag_count; $i++ ) {
+				if( array_key_exists( $tags[$i], $results ) ) {
+					$results[$tags[$i]] += intval($answer->value);
+				} else {
+					$results += array( $tags[$i] => intval($answer->value) );
+				}
+			}
+		}
+		
+		$result_db = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}ptest_results WHERE quiz_id = {$_POST['ptest_id']}");
+		$total = array( array ( ), array ( ) );
+		
+		foreach( $result_db as $result ) {
+			array_push( $total[0], $result->name );
+			$tags = array ( );
+			
+			if( !empty( $result->tags ) ) {
+				$tags = explode(',', $result->tags);
+			}
+			
+			array_push( $total[1], 0);
+		}
+		
+		$result_keys = array_keys( $results );
+		$key_count = count($total[0]);
+		for( $i = 0; $i < $key_count; $i++ ) {
+			echo $total[0][$i] . ": " . $total[1][$i] . "<br>";
 		}
 	?>
 
