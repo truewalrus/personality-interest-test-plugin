@@ -28,6 +28,12 @@
 	}
 	add_action('admin_menu', 'ptest_quiz_main_actions');
 	
+	function ptest_add_stylesheet(){
+		wp_register_style('personality-test-style', plugins_url('personality-test/css/personality-test-style.css'), array(), '20131213', 'all');
+		wp_enqueue_style('personality-test-style');
+	}
+	add_action('admin_enqueue_scripts', 'ptest_add_stylesheet');
+	
 	function ptest_database_init(){
 
 		global $wpdb;

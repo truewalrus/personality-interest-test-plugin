@@ -64,7 +64,6 @@ function ptest_insert_answers($question_id, $answers){
 		}
 		$data = array('question_id'=>$question_id, 'answer'=>$answer["answer"], 'value'=>$answer["value"], 'tag'=>$answer["tags"]);
 		$wpdb->insert($wpdb->prefix . 'ptest_answers', $data);
-		echo $wpdb->insert_id;
 	}
 }
 
@@ -157,7 +156,7 @@ function ptest_update_result($result_id, $result){
 	
 	$data = array('name'=>$result["name"], 'tag'=>$result["tags"]);
 	
-	echo $wpdb->update($wpdb->prefix . "ptest_results", $data, array('id' => $result_id));
+	$wpdb->update($wpdb->prefix . "ptest_results", $data, array('id' => $result_id));
 }
 
 /*Change the question to a new question
@@ -174,10 +173,10 @@ function ptest_update_question($question_id, $question){
 /*Change the answers to a question
 Requires: $queestion_id: id of question with answers to change, 
 $answers list of answers. answers are arrays containing; answer: the text for the answer, value: value of the answer, default 0, tags: list of tags (csv string)*/
-//TODO: CHANGE THIS TO SINGULAR OR FIND WORKAROUND FOR UPDATING -- CURRENTLY UPDATES ALL ANSWERS TO LAST INPUTTED THING
 function ptest_update_answers($question_id, $answers){
 
 	global $wpdb;
+	$wpdb->delete($wpdb->prefix . "ptest_answers", array('question_id' => $question_id));
 	
 	foreach ($answers as $answer){
 		//Give answer a value if it's null
@@ -186,7 +185,7 @@ function ptest_update_answers($question_id, $answers){
 			$answer["value"] = 0;
 		}
 		$data = array('question_id'=>$question_id, 'answer'=>$answer["answer"], 'value'=>$answer["value"], 'tag'=>$answer["tags"]);
-		$wpdb->update($wpdb->prefix . "ptest_answers", $data, array('question_id'=>$question_id));
+		$wpdb->insert($wpdb->prefix . 'ptest_answers', $data);		
 	}
 }
 ?>
