@@ -69,12 +69,17 @@
 
 	function editQuiz(){
 		document.getElementById("edit-quiz").style.display="block";
+		document.getElementById("add-result").style.display="none";
+		document.getElementById("add-question").style.display="none";
 		document.getElementById("ptest_quiz_name_change").focus();
 	}
 	
 	function addNewResult(){
+		document.getElementById("result-header").innerHTML = "Add Result";
 		document.getElementById("ptest_result_add_hidden").value="add";
 		document.getElementById("add-result").style.display="block";
+		document.getElementById("edit-quiz").style.display="none";
+		document.getElementById("add-question").style.display="none";
 		document.getElementById("ptest_result_name").value = "";
 		document.getElementById("ptest_result_id_hidden").value = "";
 		document.getElementById("ptest_result_tags").value = "";
@@ -82,8 +87,11 @@
 	}
 	
 	function editResult(id, name, tags){
+		document.getElementById("result-header").innerHTML = "Edit Result";
 		document.getElementById("ptest_result_add_hidden").value="edit";
 		document.getElementById("add-result").style.display="block";
+		document.getElementById("edit-quiz").style.display="none";
+		document.getElementById("add-question").style.display="none";
 		document.getElementById("ptest_result_name").value = name;
 		document.getElementById("ptest_result_id_hidden").value = id;
 		document.getElementById("ptest_result_tags").value = tags;
@@ -112,7 +120,10 @@
 	function editQuestion(id, question) {
 		var args = Array.prototype.slice.call(arguments, 2);
 		
+		document.getElementById("question-header").innerHTML = "Edit Question";
 		document.getElementById("add-question").style.display="block";
+		document.getElementById("add-result").style.display="none";
+		document.getElementById("edit-quiz").style.display="none";
 		document.getElementById("answers").innerHTML = "<tr><th></th><th>Answer</th><th>Tags</th><th>Value</th><th></th></tr>";
 		answerCount = 0;
 		
@@ -205,7 +216,10 @@
 	}
 	
 	function addNewQuestion(){
+		document.getElementById("question-header").innerHTML = "Add Result";
 		document.getElementById("add-question").style.display="block";
+		document.getElementById("add-result").style.display="none";
+		document.getElementById("edit-quiz").style.display="none";
 		document.getElementById("answers").innerHTML = "<tr><th></th><th>Answer</th><th>Tags</th><th>Value</th><th></th></tr>";
 		document.getElementById("ptest_question_hidden").value = "add";
 		document.getElementById("ptest_question_question").value = "";
@@ -215,105 +229,112 @@
 
 </script>
 
+<div class = "ptest-container">
 
-<div class = "display-left">
-	<h2>Quiz Information</h2>
-	<table>
-		<tr>
-			<th>Quiz Name</th>
-			<th>Short Code</th>
-			<th>Options</th>
-		</tr>
-		<tr>
-			<th><?php echo $quiz->name; ?></th>
-			<th> <?php echo "[ptest id =" . $quiz->id . "]";?></th>
-			<th> <button onclick = "editQuiz()">Edit</button>
-		</tr>
-	</table>
+	<a href = "<?php echo remove_query_arg( array( 'edit', 'id' ) ); ?>"> Back </a>
 
-	<h2>Results</h2> <button onclick = "addNewResult()">Add New</button>
-	<table>
-		<tr>
-			<th>#</th>
-			<th>Result Name</th>
-			<th>Tags</th>
-			<th>Options</th>
-		</tr>
-	<?php 
-	foreach($results_list as $result){?>
-		<tr>
-			<td><?php echo $result->id; ?></td>
-			<td><?php echo $result->name; ?></td>
-			<td><?php echo $result->tag; ?></td>
-			<td><button onclick = "editResult(<?php  echo $result->id . ", '" . $result->name . "', '" . $result->tag . "'"  ?> )">Edit</button> 
-			<form name = "result-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post"  style = "display: inline">
-				<input type = "hidden" name = "ptest_result_delete_hidden" value = "Y">
-				<input type = "hidden" name = "ptest_result_id_hidden" value = "<?php echo $result->id ?>">
-				<input type = "submit" value = "Delete">
-			</form></td>
-			
-		</tr>
-	<?php } ?>
-	</table>
+	<div class = "ptest-display-left">
+		<h2>Quiz Information</h2>
+		<table class = "ptest-quiz-table">
+			<tr>
+				<th>Quiz Name</th>
+				<th>Short Code</th>
+				<th>Options</th>
+			</tr>
+			<tr>
+				<th><?php echo $quiz->name; ?></th>
+				<th> <?php echo "[ptest id =" . $quiz->id . "]";?></th>
+				<th> <button onclick = "editQuiz()">Edit Name</button>
+			</tr>
+		</table>
 
-	<h2>Questions</h2> <button onclick = "addNewQuestion()">Add New</button>
+		<h2>Results</h2> <button onclick = "addNewResult()">Add New</button>
+		<table class = "ptest-quiz-table">
+			<tr>
+				<th>#</th>
+				<th>Result Name</th>
+				<th>Tags</th>
+				<th>Options</th>
+			</tr>
+		<?php 
+		foreach($results_list as $result){?>
+			<tr>
+				<td><?php echo $result->id; ?></td>
+				<td><?php echo $result->name; ?></td>
+				<td><?php echo $result->tag; ?></td>
+				<td><button onclick = "editResult(<?php  echo $result->id . ", '" . $result->name . "', '" . $result->tag . "'"  ?> )">Edit</button> 
+				<form name = "result-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post"  style = "display: inline">
+					<input type = "hidden" name = "ptest_result_delete_hidden" value = "Y">
+					<input type = "hidden" name = "ptest_result_id_hidden" value = "<?php echo $result->id ?>">
+					<input type = "submit" value = "Delete">
+				</form></td>
+				
+			</tr>
+		<?php } ?>
+		</table>
 
-	<?php $count = 0;
-	foreach($questions_list as $question) {
-		 $count++;
-		 echo $count . ". " . $question->question;?>
-		 <button id="question<?php echo $question->id ?>">Edit</button> 
-			<form name = "result-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post" style = "display: inline">
-				<input type = "hidden" name = "ptest_result_delete_hidden" value = "Y">
-				<input type = "hidden" name = "ptest_result_id_hidden" value = "<?php echo $result->id ?>">
-				<input type = "submit" value = "Delete">
+		<h2>Questions</h2> <button onclick = "addNewQuestion()">Add New</button>
+
+		<?php $count = 0;
+		foreach($questions_list as $question) {
+			 $count++;
+			 echo $count . ". " . $question->question;?>
+			 <button id="question<?php echo $question->id ?>">Edit</button> 
+				<form name = "result-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post" style = "display: inline">
+					<input type = "hidden" name = "ptest_result_delete_hidden" value = "Y">
+					<input type = "hidden" name = "ptest_result_id_hidden" value = "<?php echo $result->id ?>">
+					<input type = "submit" value = "Delete">
+				</form>
+		<?php
+			$click_params = "{$question->id}, \"{$question->question}\"";
+			 echo "</br>";
+			 $answers_list = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "ptest_answers WHERE question_id = " . $question->id);
+			 $ans_count = 0;
+			 foreach($answers_list as $answer){
+				$ans_count++;
+				echo $ans_count . ". " .$answer->answer . " (" . $answer->tag . ") [" . $answer->value . "]";
+				echo "</br>";
+				
+				$click_params .= ", [\"{$answer->answer}\", \"{$answer->tag}\", \"{$answer->value}\"]";
+				
+				
+			 }
+			 echo "<script type='text/javascript'> addClick(\"question" . $question->id . "\", '" . $click_params . "');</script>";
+		} ?>
+	</div>
+
+	<div class = "ptest-display-right">
+		<div id = "edit-quiz" style = "display: none">
+			<h2>Edit Quiz</h2>
+			<form name = "quiz_mod" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
+				<input type = "hidden" name = "ptest_quiz_name_hidden" value = "Y">
+				Quiz Name: <input type = "text" id = "ptest_quiz_name_change" name = "ptest_quiz_name_change" width = "20" value = <?php echo $quiz->name; ?> >
+				<input type = "submit" value = "Submit">
 			</form>
-	<?php
-		$click_params = "{$question->id}, \"{$question->question}\"";
-		 echo "</br>";
-		 $answers_list = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "ptest_answers WHERE question_id = " . $question->id);
-		 $ans_count = 0;
-		 foreach($answers_list as $answer){
-			$ans_count++;
-			echo $ans_count . ". " .$answer->answer . " (" . $answer->tag . ") [" . $answer->value . "]";
-			echo "</br>";
-			
-			$click_params .= ", [\"{$answer->answer}\", \"{$answer->tag}\", \"{$answer->value}\"]";
-			
-			
-		 }
-		 echo "<script type='text/javascript'> addClick(\"question" . $question->id . "\", '" . $click_params . "');</script>";
-	} ?>
-</div>
-
-<div class = "display-right">
-	<div id = "edit-quiz" style = "display: none">
-		<form name = "quiz_mod" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
-			<input type = "hidden" name = "ptest_quiz_name_hidden" value = "Y">
-			Quiz Name: <input type = "text" id = "ptest_quiz_name_change" name = "ptest_quiz_name_change" width = "20" value = <?php echo $quiz->name; ?> >
-			<input type = "submit" value = "Submit">
-		</form>
-	</div>
-	
-	<div id = "add-result" style = "display: none">
-		<form name = "result" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
-			<input type = "hidden" name = "ptest_result_add_hidden" id = "ptest_result_add_hidden" value = "edit">
-			<input type = "hidden" name = "ptest_result_id_hidden" id = "ptest_result_id_hidden">
-			Result: <input type = "text" name = "ptest_result_name" id = "ptest_result_name" width = "20">
-			Tags: <input type = "text" name = "ptest_result_tags" id = "ptest_result_tags" width = "20">
-			<input type = "submit" value = "Submit">
-		</form>
-	</div>
-	
-	<div id = "add-question" style = "display: none">
-		<form name = "ques_add" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
-			<input type = "hidden" name = "ptest_question_hidden" id = "ptest_question_hidden" value = "edit">
-			<input type = "hidden" name = "ptest_question_id_hidden" id = "ptest_question_id_hidden">
-			Question: <input type = "text" name = "ptest_question_question" id = "ptest_question_question" width = "20">
-			<button type = "button" onclick = "addNewAnswer()">Add An Answer</button>
-			<table id = "answers"></table>
-			<input type = "submit" value = "Submit">
-		</form>
-	
+		</div>
+		
+		<div id = "add-result" style = "display: none">
+			<h2 id = "result-header">Add Result</h2>
+			<form name = "result" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
+				<input type = "hidden" name = "ptest_result_add_hidden" id = "ptest_result_add_hidden" value = "edit">
+				<input type = "hidden" name = "ptest_result_id_hidden" id = "ptest_result_id_hidden">
+				Result: <input type = "text" name = "ptest_result_name" id = "ptest_result_name" width = "20">
+				Tags: <input type = "text" name = "ptest_result_tags" id = "ptest_result_tags" width = "20">
+				<input type = "submit" value = "Submit">
+			</form>
+		</div>
+		
+		<div id = "add-question" style = "display: none">
+			<h2 id = "question-header">Add Question</h2>
+			<form name = "ques_add" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
+				<input type = "hidden" name = "ptest_question_hidden" id = "ptest_question_hidden" value = "edit">
+				<input type = "hidden" name = "ptest_question_id_hidden" id = "ptest_question_id_hidden">
+				Question: <input type = "text" name = "ptest_question_question" id = "ptest_question_question" width = "20">
+				<button type = "button" onclick = "addNewAnswer()">Add An Answer</button>
+				<table id = "answers"></table>
+				<input type = "submit" value = "Submit">
+			</form>
+		
+		</div>
 	</div>
 </div>
