@@ -20,7 +20,71 @@
 	-moz-box-sizing: border-box;
 }
 
+.ptest-stacking-container{
+	position: relative;
+}
+
+.ptest-display-hover{
+	position: absolute;
+	top: 5%;
+	left: 9%;
+	background: rgb(241, 241, 241);
+	border: 1px solid black;
+}
+
+.ptest-display-hidden-hover-closer{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+}
+
+.ptest-display-top{
+	width:100%;
+	position:relative;
+}
+
 .ptest-quiz-table{
 	border: 1px solid black;
 	width: 100%;
+	text-align:center;
+}
+
+.ptest-quiz-table th, td{
+	border: 1px solid black;
+}
+
+.ptest-modify-link{
+	text-decoration: none;
+}
+
+.ptest-delete-submit{
+	color: red;
+	border: none;
+}
+
+.ptest-delete-submit:hover{
+	cursor: pointer;
+	color: rgb(242, 87, 95);
+}
+
+.ptest-add-symbol{
+	border: none;
+	color: blue;
+}
+
+.ptest-x-symbol{
+	border: none;
+	color: red;
+	float: right;
+}
+
+.ptest-add-symbol:hover{
+	cursor: pointer;
+}
+
+.ptest-x-symbol:hover{
+	cursor: pointer;
 }
