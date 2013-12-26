@@ -51,15 +51,33 @@
 .ptest-quiz-table{
 	border: 1px solid black;
 	width: 100%;
+	max-width: 100%;
 	text-align:center;
 }
 
 .ptest-quiz-table th, td{
 	border: 1px solid black;
+	white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow:ellipsis;
 }
 
 .ptest-modify-link{
 	text-decoration: none;
+}
+
+.ptest-modify-button{
+	color: rgb(0, 116, 162);
+	border: none;
+}
+
+.ptest-modify-button:hover{
+	cursor: pointer;
+	color: rgb(46, 162, 204);
+}
+
+.ptest-modify-button:focus{
+	color: rgb(18, 73, 100);
 }
 
 .ptest-delete-submit{
@@ -74,7 +92,7 @@
 
 .ptest-add-symbol{
 	border: none;
-	color: blue;
+	color: green;
 }
 
 .ptest-x-symbol{
@@ -90,3 +108,21 @@
 .ptest-x-symbol:hover{
 	cursor: pointer;
 }
+
+.ptest-hide-extra{
+	width: 200px;
+	text-align:center;
+	white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow:ellipsis; 
+    display: block;
+}
+
+.ptest-quiz-answer-table{
+	border: none;
+	width: 100%;
+	max-width: 100%;
+	text-align:center;
+}
+
+

@@ -58,6 +58,11 @@
 		
 		ptest_update_answers($question_id, $answer_array);
 	}
+	if($_POST['ptest_question_delete_hidden'] == 'Y')
+	{
+		$question_id = $_POST['ptest_question_id_hidden'];
+		ptest_delete_question($question_id);
+	}
 	
     $quiz = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "ptest_quizzes WHERE id = " . $parsed_url['id']);
     $quiz = $quiz[0];
@@ -216,7 +221,7 @@
 	}
 	
 	function addNewQuestion(){
-		document.getElementById("question-header").innerHTML = "Add Result";
+		document.getElementById("question-header").innerHTML = "Add Question";
 		document.getElementById("add-question").style.display="block";
 		document.getElementById("add-result").style.display="none";
 		document.getElementById("edit-quiz").style.display="none";
@@ -230,10 +235,8 @@
 </script>
 
 <div class = "ptest-container">
-
-	<a href = "<?php echo remove_query_arg( array( 'edit', 'id' ) ); ?>"> Back </a>
-
-	<div class = "ptest-display-left">
+	<div class = "ptest-display-top">
+		<a href = "<?php echo remove_query_arg( array( 'edit', 'id' ) ); ?>"> Back </a>
 		<h2>Quiz Information</h2>
 		<table class = "ptest-quiz-table">
 			<tr>
@@ -242,13 +245,13 @@
 				<th>Options</th>
 			</tr>
 			<tr>
-				<th><?php echo $quiz->name; ?></th>
+				<th style = "max-width: 300px"><?php echo $quiz->name; ?></th>
 				<th> <?php echo "[ptest id =" . $quiz->id . "]";?></th>
-				<th> <button onclick = "editQuiz()">Edit Name</button>
+				<td> <button class = "ptest-modify-button" onclick = "editQuiz()">Edit Name</button></td>
 			</tr>
 		</table>
-
-		<h2>Results</h2> <button onclick = "addNewResult()">Add New</button>
+		
+		<h2>Results<button class = "ptest-add-symbol" onclick = "addNewResult()" title = "Add a new result">+</button></h2>
 		<table class = "ptest-quiz-table">
 			<tr>
 				<th>#</th>
@@ -257,51 +260,84 @@
 				<th>Options</th>
 			</tr>
 		<?php 
-		foreach($results_list as $result){?>
+		$result_counter = 0;
+		foreach($results_list as $result){
+			$result_counter++;?>
 			<tr>
-				<td><?php echo $result->id; ?></td>
-				<td><?php echo $result->name; ?></td>
-				<td><?php echo $result->tag; ?></td>
-				<td><button onclick = "editResult(<?php  echo $result->id . ", '" . $result->name . "', '" . $result->tag . "'"  ?> )">Edit</button> 
+				<td><?php echo $result_counter; ?></td>
+				<td style = "max-width: 1px"><?php echo $result->name; ?></td>
+				<td style = "max-width: 1px"><?php echo $result->tag; ?></td>
+				<td><button class = "ptest-modify-button" onclick = "editResult(<?php  echo $result->id . ", '" . $result->name . "', '" . $result->tag . "'"  ?> )">Edit</button>
+				<span class = "ptest-separator">|</span>				
 				<form name = "result-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post"  style = "display: inline">
 					<input type = "hidden" name = "ptest_result_delete_hidden" value = "Y">
 					<input type = "hidden" name = "ptest_result_id_hidden" value = "<?php echo $result->id ?>">
-					<input type = "submit" value = "Delete">
+					<input class = "ptest-delete-submit" type = "submit" value = "Delete">
 				</form></td>
 				
 			</tr>
 		<?php } ?>
 		</table>
-
-		<h2>Questions</h2> <button onclick = "addNewQuestion()">Add New</button>
-
-		<?php $count = 0;
-		foreach($questions_list as $question) {
-			 $count++;
-			 echo $count . ". " . $question->question;?>
-			 <button id="question<?php echo $question->id ?>">Edit</button> 
-				<form name = "result-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post" style = "display: inline">
-					<input type = "hidden" name = "ptest_result_delete_hidden" value = "Y">
-					<input type = "hidden" name = "ptest_result_id_hidden" value = "<?php echo $result->id ?>">
-					<input type = "submit" value = "Delete">
-				</form>
+		
+		<h2>Questions<button class = "ptest-add-symbol" onclick = "addNewQuestion()" title = "Add a new question">+</button></h2>
+		<table class = "ptest-quiz-table">
+			<tr>
+				<th>#</th>
+				<th>Question</th>
+				<th>Answers</th>
+				<th>Options</th>
+			</tr>
 		<?php
-			$click_params = "{$question->id}, \"{$question->question}\"";
-			 echo "</br>";
-			 $answers_list = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "ptest_answers WHERE question_id = " . $question->id);
-			 $ans_count = 0;
-			 foreach($answers_list as $answer){
-				$ans_count++;
-				echo $ans_count . ". " .$answer->answer . " (" . $answer->tag . ") [" . $answer->value . "]";
-				echo "</br>";
+		$question_counter = 0;
+		foreach($questions_list as $question){
+			$question_counter++;?>
+			<tr>
+				<td><?php echo $question_counter; ?></td>
+				<td style = "max-width: 200px"><?php echo $question->question;?></td>
+				<td style = "max-width: 200px">
+					<table class = "ptest-quiz-answer-table">
+						<tr>
+							<th>#</th>
+							<th>Answer</th>
+							<th>Tags</th>
+							<th>Value</th>
+						</tr>
+						<?php
+						$click_params = "{$question->id}, \"{$question->question}\"";
+						$answers_list = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "ptest_answers WHERE question_id = " . $question->id);
+						$answer_counter = 0;
+						foreach($answers_list as $answer){
+							$answer_counter++;?>
+							<tr>
+								<td><?php echo $answer_counter;?></td>
+								<td style = "max-width: 200px"><?php echo $answer->answer;?></td>
+								<td><?php echo $answer->tag;?></td>
+								<td><?php echo $answer->value;?></td>
+							</tr>
+							
+						<?php $click_params .= ", [\"{$answer->answer}\", \"{$answer->tag}\", \"{$answer->value}\"]"; } ?>
+					</table>
+				</td>
+				<td><button class = "ptest-modify-button" id="question<?php echo $question->id ?>">Edit</button>
+				<span class = "ptest-separator">|</span>
+				<form name = "question-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post" style = "display: inline">
+					<input type = "hidden" name = "ptest_question_delete_hidden" value = "Y">
+					<input type = "hidden" name = "ptest_question_id_hidden" value = "<?php echo $question->id ?>">
+					<input class = "ptest-delete-submit" type = "submit" value = "Delete">
+				</form></td>
 				
-				$click_params .= ", [\"{$answer->answer}\", \"{$answer->tag}\", \"{$answer->value}\"]";
-				
-				
-			 }
-			 echo "<script type='text/javascript'> addClick(\"question" . $question->id . "\", '" . $click_params . "');</script>";
+			</tr>
+		<?php 
+			echo "<script type='text/javascript'> addClick(\"question" . $question->id . "\", '" . $click_params . "');</script>";
 		} ?>
+		</table>
+		
+		
 	</div>
+</div>
+
+<div class = "ptest-container">
+
 
 	<div class = "ptest-display-right">
 		<div id = "edit-quiz" style = "display: none">

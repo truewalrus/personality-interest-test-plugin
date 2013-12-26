@@ -44,7 +44,7 @@
 			<?php foreach($quiz_list as $quiz){
 				?><tr>
 					<td> <?php echo $quiz_count++; ?></td>
-					<td> <?php echo $quiz->name; ?></td>
+					<td style = "max-width: 300px"> <?php echo $quiz->name; ?></td>
 					<td> <?php echo "[ptest id=" . $quiz->id . "]"; ?></td>
 					<td> 
 						<?php 
