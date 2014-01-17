@@ -46,6 +46,7 @@
 		$sql = "CREATE TABLE $quiz_table (
                                 id int NOT NULL AUTO_INCREMENT,
                                 name tinytext,
+								results_page text,
                                 PRIMARY KEY id (id)
                                 );";
 					   
