@@ -354,12 +354,15 @@
 
 	<div class = "ptest-edit-hover" style = "display: none" id = "ptest-hover">
 		<div id = "edit-quiz" style = "display: none">
-			<h2>Edit Quiz</h2>
+			<h2 class = "ptest-edit-h2">Edit Quiz Name</h2>
+			<div><span class = "helper">This is the name of the quiz as it will appear on your website.</span></div>
+			<br>
 			<form name = "quiz_mod" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
 				<input type = "hidden" name = "ptest_quiz_name_hidden" value = "Y">
-				Quiz Name: <input type = "text" id = "ptest_quiz_name_change" name = "ptest_quiz_name_change" width = "20" value = <?php echo $quiz->name; ?> >
-				<input type = "submit" value = "Submit">
+				Quiz Name: <input type = "text" style = "width: 80%" id = "ptest_quiz_name_change" name = "ptest_quiz_name_change" value = <?php echo $quiz->name; ?> >
+				<input class = "ptest-form-submit" type = "submit" value = "Save">
 			</form>
+			<br>
 		</div>
 
 		<div id = "add-result" style = "display: none">
