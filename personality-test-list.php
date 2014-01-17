@@ -48,7 +48,7 @@
 					<td> <?php echo "[ptest id=" . $quiz->id . "]"; ?></td>
 					<td> 
 						<?php 
-						$link_url = add_query_arg( array('edit' => '1', 'id' => $quiz->id), $_SERVER["REQUEST_URI"] );?>	
+						$link_url = add_query_arg( array('edit' => 'quiz', 'id' => $quiz->id), $_SERVER["REQUEST_URI"] );?>	
 						<a class = "ptest-modify-link" href = "<?php echo $link_url; ?>">Modify</a>
 						<span class = "ptest-separator">|</span>
 						<form name = "quiz-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post"  style = "display: inline">

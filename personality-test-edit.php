@@ -262,7 +262,11 @@
 			<tr>
 				<th style = "max-width: 300px"><?php echo $quiz->name; ?></th>
 				<th> <?php echo "[ptest id =" . $quiz->id . "]";?></th>
-				<td> <button class = "ptest-modify-button" onclick = "editQuiz()">Edit Name</button></td>
+				<td> <button class = "ptest-modify-button" onclick = "editQuiz()">Edit Name</button>
+				<span class = "ptest-separator">|</span>
+				<?php 
+						$link_url = add_query_arg( array('edit' => 'results'), $_SERVER["REQUEST_URI"] );?>
+				<a class = "ptest-modify-link" href = "<?php echo $link_url; ?>">Edit Results Page</a></td>
 			</tr>
 		</table>
 		
