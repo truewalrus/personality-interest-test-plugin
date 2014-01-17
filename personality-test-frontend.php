@@ -30,8 +30,6 @@
 	</form>
 	
 <?php } else { ?>
-
-	<h1>RESULTS</h1>
 	
 	<script type="text/javascript">
 		function clicked(value) {
@@ -99,8 +97,36 @@
 		
 		$result_keys = array_keys( $results );
 		$key_count = count($total[0]);
+		/*
 		for( $i = 0; $i < $key_count; $i++ ) {
 			echo "<span onClick=\"clicked(" . $i . ")\">" . $total[0][$i] . ": " . $total[1][$i] . "</span><br>";
 		}
+		*/
+		
+		$quiz = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}ptest_quizzes WHERE id = {$_POST['ptest_id']}");
+		$results_page = $quiz[0]->results_page;
+		
+		//echo $results_page;
+		
+		$tok = strtok($results_page, '[');
+		$final_result_page = '';
+		
+		
+		while( $tok !== false ) {
+			$final_result_page .= $tok;
+			
+			$tag = strtok(']');
+			
+			if ($tag === "result") {
+				$final_result_page .= $total[0][0];
+			}
+			else {
+				$final_result_page .= $tag;
+			}
+			
+			$tok = strtok('[');
+		}
+		
+		echo $final_result_page;
 	?>
 <?php } ?>
