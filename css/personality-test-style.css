@@ -161,3 +161,33 @@
 	width: 100%;
 	height: 40em;
 }
+
+.ptest-form-spacer{
+	min-width: 10%;
+	max-width: 10%;
+	display: inline-block;
+}
+
+.ptest-form-input-spacer{
+	min-width:80%;
+	max-width:80%;
+}
+
+.ptest-form-answer-spacer{
+	min-width:70%;
+	max-width:70%;
+}
+
+.ptest-form-answer-tags-spacer{
+	min-width:40%;
+	max-width: 40%;
+}
+
+.ptest-form-answer-value-spacer{
+	min-width: 19.2%;
+	max-width: 19.2%;
+}
+
+.ptest-answers-box{
+	border: 1px solid black;
+}

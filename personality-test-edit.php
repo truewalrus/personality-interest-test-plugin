@@ -53,6 +53,7 @@
 		$answer_array = array();
 		
 		for ($i=0; $i < count($answers); $i++){
+			echo "Answer: " . $answers[$i] . " TAGS: " . $tags[$i] . " VALUE: " . $value[$i];
 			array_push($answer_array, (array("answer"=>$answers[$i], "tags"=>$tags[$i], "value"=>$value[$i])));
 		}
 		
@@ -89,6 +90,7 @@
 		document.getElementById('ptest-hover').style.display = "block";
 		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("result-header").innerHTML = "Add Result";
+		document.getElementById("ptest-helper-results").innerHTML = "Add a new Result to your quiz.  The name of the Result is how it will appear at the end of your quiz.<br> Results match with answers by matching tags and counting values. A result can have multiple comma separated tags (ex: tag1, tag2, tag3).";
 		document.getElementById("ptest_result_add_hidden").value="add";
 		document.getElementById("add-result").style.display="block";
 		document.getElementById("edit-quiz").style.display="none";
@@ -103,6 +105,7 @@
 		document.getElementById('ptest-hover').style.display = "block";
 		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("result-header").innerHTML = "Edit Result";
+		document.getElementById("ptest-helper-results").innerHTML = "Edit a result's name or tags.";
 		document.getElementById("ptest_result_add_hidden").value="edit";
 		document.getElementById("add-result").style.display="block";
 		document.getElementById("edit-quiz").style.display="none";
@@ -197,7 +200,42 @@
 	
 	function addNewAnswer(){
 		answerCount++;
-		var container = document.createElement("tr");
+		var container = document.createElement("div");
+		container.className = "ptest-answers-box";
+		
+		var answerText = document.createElement("div");
+		answerText.innerHTML = "Answer:";
+		answerText.className = "ptest-form-spacer";
+		container.appendChild(answerText);
+		
+		var answerInput = document.createElement("input");
+		answerInput.placeholder = "The Answer";
+		answerInput.className = "ptest-form-answer-spacer";
+		answerInput.setAttribute("name", "ptest_answer_name[]");
+		container.appendChild(answerInput);
+		
+		var answerTags = document.createElement("div");
+		answerTags.innerHTML = "Tags:";
+		answerTags.className = "ptest-form-spacer";
+		container.appendChild(answerTags);
+		
+		var tagsInput = document.createElement("input");
+		tagsInput.placeholder = "tag1, tag2";
+		tagsInput.className = "ptest-form-answer-tags-spacer";
+		tagsInput.setAttribute("name", "ptest_answer_tags[]");
+		container.appendChild(tagsInput);
+		
+		var answerValue = document.createElement("div");
+		answerValue.innerHTML = "Value:";
+		answerValue.className = "ptest-form-spacer";
+		container.appendChild(answerValue);
+		
+		var valueInput = document.createElement("input");
+		valueInput.placeholder = "The point value of the answer";
+		valueInput.className = "ptest-form-value-spacer";
+		valueInput.setAttribute("name", "ptest_answer_value[]");
+		container.appendChild(valueInput);
+		/*var container = document.createElement("tr");
 		
 		var td = document.createElement("td");
 		td.innerHTML = answerCount + ".";
@@ -225,11 +263,9 @@
 		delBut.setAttribute("onclick", "deleteAnswer(this)");
 		delBut.setAttribute("type", "button");
 		delBut.setAttribute("value", "Delete");
-		td = document.createElement("td");
-		td.appendChild(delBut);
-		container.appendChild(td);
+		container.appendChild(delBut);*/
 
-		document.getElementById("answers").appendChild(container);
+		document.getElementById("ptest-answers-form").appendChild(container);
 	}
 	
 	function addNewQuestion(){
@@ -239,7 +275,7 @@
 		document.getElementById("add-question").style.display="block";
 		document.getElementById("add-result").style.display="none";
 		document.getElementById("edit-quiz").style.display="none";
-		document.getElementById("answers").innerHTML = "<tr><th></th><th>Answer</th><th>Tags</th><th>Value</th><th></th></tr>";
+		//document.getElementById("answers").innerHTML = "<tr><th></th><th>Answer</th><th>Tags</th><th>Value</th><th></th></tr>";
 		document.getElementById("ptest_question_hidden").value = "add";
 		document.getElementById("ptest_question_question").value = "";
 		answerCount = 0;
@@ -251,7 +287,7 @@
 <div class = "ptest-container">
 <div class = "ptest-stacking-container">
 	<div class = "ptest-display-top">
-		<a href = "<?php echo remove_query_arg( array( 'edit', 'id' ) ); ?>"> Back </a>
+		<a title = "Return to the list of quizzes." href = "<?php echo remove_query_arg( array( 'edit', 'id' ) ); ?>"> Back </a>
 		<h2>Quiz Information</h2>
 		<table class = "ptest-quiz-table">
 			<tr>
@@ -266,7 +302,7 @@
 				<span class = "ptest-separator">|</span>
 				<?php 
 						$link_url = add_query_arg( array('edit' => 'results'), $_SERVER["REQUEST_URI"] );?>
-				<a class = "ptest-modify-link" href = "<?php echo $link_url; ?>">Edit Results Page</a></td>
+				<a title = "Edit how the Results page will look at the end of your quiz" class = "ptest-modify-link" href = "<?php echo $link_url; ?>">Edit Results Page</a></td>
 			</tr>
 		</table>
 		
@@ -359,35 +395,48 @@
 	<div class = "ptest-edit-hover" style = "display: none" id = "ptest-hover">
 		<div id = "edit-quiz" style = "display: none">
 			<h2 class = "ptest-edit-h2">Edit Quiz Name</h2>
-			<div><span class = "helper">This is the name of the quiz as it will appear on your website.</span></div>
+			<div><span class = "ptest-helper">This is the name of the quiz as it will appear on your website.</span></div>
 			<br>
 			<form name = "quiz_mod" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
 				<input type = "hidden" name = "ptest_quiz_name_hidden" value = "Y">
-				Quiz Name: <input type = "text" style = "width: 80%" id = "ptest_quiz_name_change" name = "ptest_quiz_name_change" value = <?php echo $quiz->name; ?> >
+				<div class = "ptest-form-spacer">Quiz Name:</div> <input type = "text" placeholder = "Quiz Name" class = "ptest-form-input-spacer" id = "ptest_quiz_name_change" name = "ptest_quiz_name_change" value = "<?php echo $quiz->name; ?>" required>
 				<input class = "ptest-form-submit" type = "submit" value = "Save">
 			</form>
 			<br>
 		</div>
 
 		<div id = "add-result" style = "display: none">
-			<h2 id = "result-header">Add Result</h2>
+			<h2 class = "ptest-edit-h2" id = "result-header">Add Result</h2>
+			<div><span id = "ptest-helper-results" class = "ptest-helper">Add a new Result to your quiz.  The name of the Result is how it will appear at the end of your quiz.<br> Results match with answers by matching tags and counting values. A result can have multiple comma separated tags (ex: tag1, tag2, tag3).</span></div>
+			<br>
 			<form name = "result" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
 				<input type = "hidden" name = "ptest_result_add_hidden" id = "ptest_result_add_hidden" value = "edit">
 				<input type = "hidden" name = "ptest_result_id_hidden" id = "ptest_result_id_hidden">
-				Result: <input type = "text" name = "ptest_result_name" id = "ptest_result_name" width = "20">
-				Tags: <input type = "text" name = "ptest_result_tags" id = "ptest_result_tags" width = "20">
-				<input type = "submit" value = "Submit">
+				<div class = "ptest-form-spacer">Result Name:</div> <input type = "text" placeholder = "Result Name" name = "ptest_result_name" id = "ptest_result_name" class = "ptest-form-input-spacer" required>
+				<br>
+				<div class = "ptest-form-spacer">Tags:</div> <input type = "text" placeholder = "tag1, tag2" name = "ptest_result_tags" id = "ptest_result_tags" class = "ptest-form-input-spacer" required>
+				<br><div style = "display: inline-block; width: 87%"></div><input class = "ptest-form-submit" type = "submit" value = "Save">
 			</form>
+			<br>
 		</div>
 
 		<div id = "add-question" style = "display: none">
 			<h2 id = "question-header">Add Question</h2>
+			<div><span id = "ptest-helper-questions" class = "ptest-helper">Add a new question to your quiz.</div>
 			<form name = "ques_add" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
 				<input type = "hidden" name = "ptest_question_hidden" id = "ptest_question_hidden" value = "edit">
 				<input type = "hidden" name = "ptest_question_id_hidden" id = "ptest_question_id_hidden">
-				Question: <input type = "text" name = "ptest_question_question" id = "ptest_question_question" width = "20">
+				<div class = "ptest-form-spacer">Question:</div> <input type = "text" placeholder = "The Question" name = "ptest_question_question" id = "ptest_question_question" class = "ptest-form-input-spacer" required>
+				<br>
 				<button type = "button" onclick = "addNewAnswer()">Add An Answer</button>
-				<table id = "answers"></table>
+				<!--<br>
+				<div class = "ptest-form-spacer">Answer:</div> <input type = "text" name = "ptest_question_question" id = "ptest_question_question" class = "ptest-form-answer-spacer" required>
+				<br>
+				<div class = "ptest-form-spacer">Tags:</div> <input type = "text" name = "ptest_question_question" id = "ptest_question_question" class = "ptest-form-answer-tags-spacer" required>
+				<div class = "ptest-form-spacer">Value:</div> <input type = "text" name = "ptest_question_question" id = "ptest_question_question" class = "ptest-form-answer-value-spacer" required>
+				<br>-->
+				<div id = "ptest-answers-form"></div>
+				<!--<table id = "answers"></table>-->
 				<input type = "submit" value = "Submit">
 			</form>
 
