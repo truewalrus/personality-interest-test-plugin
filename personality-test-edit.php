@@ -72,7 +72,13 @@
 
 <script type = "text/javascript">
 
+	function removeHover(){
+		document.getElementById('ptest-hover').style.display = "none";
+		document.getElementById('ptest-hidden-hover').style.display = "none";
+	}
 	function editQuiz(){
+		document.getElementById('ptest-hover').style.display = "block";
+		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("edit-quiz").style.display="block";
 		document.getElementById("add-result").style.display="none";
 		document.getElementById("add-question").style.display="none";
@@ -80,6 +86,8 @@
 	}
 	
 	function addNewResult(){
+		document.getElementById('ptest-hover').style.display = "block";
+		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("result-header").innerHTML = "Add Result";
 		document.getElementById("ptest_result_add_hidden").value="add";
 		document.getElementById("add-result").style.display="block";
@@ -92,6 +100,8 @@
 	}
 	
 	function editResult(id, name, tags){
+		document.getElementById('ptest-hover').style.display = "block";
+		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("result-header").innerHTML = "Edit Result";
 		document.getElementById("ptest_result_add_hidden").value="edit";
 		document.getElementById("add-result").style.display="block";
@@ -125,6 +135,8 @@
 	function editQuestion(id, question) {
 		var args = Array.prototype.slice.call(arguments, 2);
 		
+		document.getElementById('ptest-hover').style.display = "block";
+		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("question-header").innerHTML = "Edit Question";
 		document.getElementById("add-question").style.display="block";
 		document.getElementById("add-result").style.display="none";
@@ -221,6 +233,8 @@
 	}
 	
 	function addNewQuestion(){
+		document.getElementById('ptest-hover').style.display = "block";
+		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("question-header").innerHTML = "Add Question";
 		document.getElementById("add-question").style.display="block";
 		document.getElementById("add-result").style.display="none";
@@ -235,6 +249,7 @@
 </script>
 
 <div class = "ptest-container">
+<div class = "ptest-stacking-container">
 	<div class = "ptest-display-top">
 		<a href = "<?php echo remove_query_arg( array( 'edit', 'id' ) ); ?>"> Back </a>
 		<h2>Quiz Information</h2>
@@ -334,12 +349,10 @@
 		
 		
 	</div>
-</div>
-
-<div class = "ptest-container">
 
 
-	<div class = "ptest-display-right">
+
+	<div class = "ptest-edit-hover" style = "display: none" id = "ptest-hover">
 		<div id = "edit-quiz" style = "display: none">
 			<h2>Edit Quiz</h2>
 			<form name = "quiz_mod" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
@@ -348,7 +361,7 @@
 				<input type = "submit" value = "Submit">
 			</form>
 		</div>
-		
+
 		<div id = "add-result" style = "display: none">
 			<h2 id = "result-header">Add Result</h2>
 			<form name = "result" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
@@ -359,7 +372,7 @@
 				<input type = "submit" value = "Submit">
 			</form>
 		</div>
-		
+
 		<div id = "add-question" style = "display: none">
 			<h2 id = "question-header">Add Question</h2>
 			<form name = "ques_add" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
@@ -370,7 +383,10 @@
 				<table id = "answers"></table>
 				<input type = "submit" value = "Submit">
 			</form>
-		
+
 		</div>
 	</div>
+	
+	<div class = "ptest-display-hidden-hover-closer" id = "ptest-hidden-hover" onclick = "removeHover()"></div>
+</div>
 </div>
