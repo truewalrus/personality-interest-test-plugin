@@ -202,6 +202,7 @@
 		answerCount++;
 		var container = document.createElement("div");
 		container.className = "ptest-answers-box";
+
 		
 		var answerText = document.createElement("div");
 		answerText.innerHTML = "Answer:";
@@ -209,10 +210,15 @@
 		container.appendChild(answerText);
 		
 		var answerInput = document.createElement("input");
+		answerInput.required = true;
 		answerInput.placeholder = "The Answer";
+		answerInput.type = "text"
 		answerInput.className = "ptest-form-answer-spacer";
 		answerInput.setAttribute("name", "ptest_answer_name[]");
 		container.appendChild(answerInput);
+		
+		var br = document.createElement("br");
+		container.appendChild(br);
 		
 		var answerTags = document.createElement("div");
 		answerTags.innerHTML = "Tags:";
@@ -220,6 +226,8 @@
 		container.appendChild(answerTags);
 		
 		var tagsInput = document.createElement("input");
+		tagsInput.required = true;
+		tagsInput.setAttribute("type", "text");
 		tagsInput.placeholder = "tag1, tag2";
 		tagsInput.className = "ptest-form-answer-tags-spacer";
 		tagsInput.setAttribute("name", "ptest_answer_tags[]");
@@ -231,8 +239,10 @@
 		container.appendChild(answerValue);
 		
 		var valueInput = document.createElement("input");
-		valueInput.placeholder = "The point value of the answer";
-		valueInput.className = "ptest-form-value-spacer";
+		valueInput.required = true;
+		valueInput.type = "text";
+		valueInput.placeholder = "Point Value";
+		valueInput.className = "ptest-form-answer-value-spacer";
 		valueInput.setAttribute("name", "ptest_answer_value[]");
 		container.appendChild(valueInput);
 		/*var container = document.createElement("tr");
@@ -257,13 +267,22 @@
 		newValue.setAttribute("name", "ptest_answer_value[]");
 		td = document.createElement("td");
 		td.appendChild(newValue);
-		container.appendChild(td);
+		container.appendChild(td);*/
+		
+		var newBR = document.createElement("br");
+		container.appendChild(newBR);
+		
+		var spacer = document.createElement("div");
+		spacer.style.width = "90.2%";
+		spacer.style.textAlign = "right";
 		
 		var delBut = document.createElement("input");
 		delBut.setAttribute("onclick", "deleteAnswer(this)");
 		delBut.setAttribute("type", "button");
 		delBut.setAttribute("value", "Delete");
-		container.appendChild(delBut);*/
+		delBut.setAttribute("class", "ptest-form-submit");
+		spacer.appendChild(delBut);
+		container.appendChild(spacer);
 
 		document.getElementById("ptest-answers-form").appendChild(container);
 	}
@@ -428,13 +447,15 @@
 				<input type = "hidden" name = "ptest_question_id_hidden" id = "ptest_question_id_hidden">
 				<div class = "ptest-form-spacer">Question:</div> <input type = "text" placeholder = "The Question" name = "ptest_question_question" id = "ptest_question_question" class = "ptest-form-input-spacer" required>
 				<br>
-				<button type = "button" onclick = "addNewAnswer()">Add An Answer</button>
-				<!--<br>
-				<div class = "ptest-form-spacer">Answer:</div> <input type = "text" name = "ptest_question_question" id = "ptest_question_question" class = "ptest-form-answer-spacer" required>
+				<span style = "font-size: 30px;" class = "ptest-add-symbol" type = "button" onclick = "addNewAnswer()" title = "Add a new answer to this question.">+</span>
 				<br>
-				<div class = "ptest-form-spacer">Tags:</div> <input type = "text" name = "ptest_question_question" id = "ptest_question_question" class = "ptest-form-answer-tags-spacer" required>
-				<div class = "ptest-form-spacer">Value:</div> <input type = "text" name = "ptest_question_question" id = "ptest_question_question" class = "ptest-form-answer-value-spacer" required>
-				<br>-->
+				<!--<div class = "ptest-answers-box">
+				<div class = "ptest-form-spacer">Answer:</div> <input type = "text" name = "ptest_question_question" class = "ptest-form-answer-spacer" required>
+				<br>
+				<div class = "ptest-form-spacer">Tags:</div> <input type = "text" name = "ptest_question_question" class = "ptest-form-answer-tags-spacer" required>
+				<div class = "ptest-form-spacer">Value:</div> <input type = "text" name = "ptest_question_question" class = "ptest-form-answer-value-spacer" required>
+				<br>
+				</div>-->
 				<div id = "ptest-answers-form"></div>
 				<!--<table id = "answers"></table>-->
 				<input type = "submit" value = "Submit">
