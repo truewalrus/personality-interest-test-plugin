@@ -124,13 +124,13 @@
 			answerCount--;
 		
 			var row = e.parentNode.parentNode;
-			var table = document.getElementById("answers");
+			var table = document.getElementById("ptest-answers-form");
 			
 			table.removeChild(row);
 			
 			// huh?
-			for (var i = 1; i < table.childNodes.length; i++) {
-				table.childNodes[i].childNodes[0].innerHTML = (i) + ".";
+			for (var i = 0; i < table.childNodes.length; i++) {
+				table.childNodes[i].childNodes[0].innerHTML = (i+1) + ".";
 			}
 		}
 	}
@@ -144,7 +144,7 @@
 		document.getElementById("add-question").style.display="block";
 		document.getElementById("add-result").style.display="none";
 		document.getElementById("edit-quiz").style.display="none";
-		document.getElementById("answers").innerHTML = "<tr><th></th><th>Answer</th><th>Tags</th><th>Value</th><th></th></tr>";
+		document.getElementById("ptest-answers-form").innerHTML = "";
 		answerCount = 0;
 		
 		document.getElementById("ptest_question_hidden").value = "edit";		
@@ -153,42 +153,68 @@
 		
 		for (var i = 0; i < args.length; i++) {
 			answerCount++;
-			var container = document.createElement("tr");
+			var container = document.createElement("div");
+			container.className = "ptest-answers-box";
 			
-			var td = document.createElement("td");
-			td.innerHTML = answerCount + ".";
-			container.appendChild(td);
+			var answerText = document.createElement("div");
+			answerText.innerHTML = answerCount + ".";
+			answerText.className = "ptest-form-spacer";
+			container.appendChild(answerText);
 			
-			var newAnswer = document.createElement("input");
-			newAnswer.setAttribute("name", "ptest_answer_name[]");
-			newAnswer.setAttribute("value", args[i][0]);
-			var td = document.createElement("td");
-			td.appendChild(newAnswer);
-			container.appendChild(td);
+			var answerInput = document.createElement("input");
+			answerInput.required = true;
+			answerInput.type = "text"
+			answerInput.className = "ptest-form-answer-spacer";
+			answerInput.setAttribute("name", "ptest_answer_name[]");
+			answerInput.setAttribute("value", args[i][0]);
+			container.appendChild(answerInput);
 			
-			var newTags = document.createElement("input");
-			newTags.setAttribute("name", "ptest_answer_tags[]");
-			newTags.setAttribute("value", args[i][1]);
-			td = document.createElement("td");
-			td.appendChild(newTags);
-			container.appendChild(td);
+			var br = document.createElement("br");
+			container.appendChild(br);
+		
+			var answerTags = document.createElement("div");
+			answerTags.innerHTML = "Tags:";
+			answerTags.className = "ptest-form-spacer";
+			container.appendChild(answerTags);
 			
-			var newValue = document.createElement("input");
-			newValue.setAttribute("name", "ptest_answer_value[]");
-			newValue.setAttribute("value", args[i][2]);
-			td = document.createElement("td");
-			td.appendChild(newValue);
-			container.appendChild(td);
+			var tagsInput = document.createElement("input");
+			tagsInput.required = true;
+			tagsInput.setAttribute("type", "text");
+			tagsInput.className = "ptest-form-answer-tags-spacer";
+			tagsInput.setAttribute("name", "ptest_answer_tags[]");
+			tagsInput.setAttribute("value", args[i][1]);
+			container.appendChild(tagsInput);
+			
+			var answerValue = document.createElement("div");
+			answerValue.innerHTML = "Value:";
+			answerValue.className = "ptest-form-spacer";
+			container.appendChild(answerValue);
+			
+			var valueInput = document.createElement("input");
+			valueInput.required = true;
+			valueInput.type = "text";
+			valueInput.placeholder = "Point Value";
+			valueInput.className = "ptest-form-answer-value-spacer";
+			valueInput.setAttribute("name", "ptest_answer_value[]");
+			valueInput.setAttribute("value", args[i][2]);
+			container.appendChild(valueInput);
+			
+			var newBR = document.createElement("br");
+			container.appendChild(newBR);
+			
+			var spacer = document.createElement("div");
+			spacer.style.width = "90.2%";
+			spacer.style.textAlign = "right";
 			
 			var delBut = document.createElement("input");
 			delBut.setAttribute("onclick", "deleteAnswer(this)");
 			delBut.setAttribute("type", "button");
 			delBut.setAttribute("value", "Delete");
-			td = document.createElement("td");
-			td.appendChild(delBut);
-			container.appendChild(td);
+			delBut.setAttribute("class", "ptest-form-submit");
+			spacer.appendChild(delBut);
+			container.appendChild(spacer);
 
-			document.getElementById("answers").appendChild(container);
+			document.getElementById("ptest-answers-form").appendChild(container);
 		}
 	}
 	
@@ -203,9 +229,8 @@
 		var container = document.createElement("div");
 		container.className = "ptest-answers-box";
 
-		
 		var answerText = document.createElement("div");
-		answerText.innerHTML = "Answer:";
+		answerText.innerHTML = answerCount + ".";
 		answerText.className = "ptest-form-spacer";
 		container.appendChild(answerText);
 		
@@ -294,7 +319,7 @@
 		document.getElementById("add-question").style.display="block";
 		document.getElementById("add-result").style.display="none";
 		document.getElementById("edit-quiz").style.display="none";
-		//document.getElementById("answers").innerHTML = "<tr><th></th><th>Answer</th><th>Tags</th><th>Value</th><th></th></tr>";
+		document.getElementById("ptest-answers-form").innerHTML = '';
 		document.getElementById("ptest_question_hidden").value = "add";
 		document.getElementById("ptest_question_question").value = "";
 		answerCount = 0;
