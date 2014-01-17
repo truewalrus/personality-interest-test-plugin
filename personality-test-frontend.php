@@ -33,6 +33,12 @@
 
 	<h1>RESULTS</h1>
 	
+	<script type="text/javascript">
+		function clicked(value) {
+			alert(value);
+		}
+	</script>
+	
 	<?php $answers = $_POST['ptest_answer'];
 		$answer_sql = "SELECT * FROM {$wpdb->prefix}ptest_answers WHERE id IN (";
 		
@@ -86,8 +92,7 @@
 		$result_keys = array_keys( $results );
 		$key_count = count($total[0]);
 		for( $i = 0; $i < $key_count; $i++ ) {
-			echo $total[0][$i] . ": " . $total[1][$i] . "<br>";
+			echo "<span onClick=\"clicked(" . $i . ")\">" . $total[0][$i] . ": " . $total[1][$i] . "</span><br>";
 		}
 	?>
-
 <?php } ?>
