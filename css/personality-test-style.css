@@ -46,6 +46,20 @@
 	text-align: center;
 }
 
+.ptest-question-hover{
+	overflow-y: scroll;
+	max-height: 80%;
+	position: fixed;
+	top: 10%;
+	left: 15%;
+	width: 80%;
+	background: rgb(230, 230, 230);
+	border: 1px solid rgb(0, 116, 162);
+	border-radius: 5px;
+	z-index: 1000;
+	text-align: center;
+}
+
 .ptest-display-hidden-hover-closer{
 	width: 100%;
 	height: 100%;
@@ -66,13 +80,21 @@
 	width: 100%;
 	max-width: 100%;
 	text-align:center;
+	table-layout: fixed;
 }
 
 .ptest-quiz-table th, td{
 	border: 1px solid black;
-	white-space: nowrap; 
     overflow: hidden; 
-    text-overflow:ellipsis;
+	word-wrap: break-word;
+}
+
+.ptest-quiz-answer-table{
+	border: none;
+	width: 100%;
+	max-width: 100%;
+	text-align:center;
+	table-layout: fixed;
 }
 
 .ptest-modify-link{
@@ -132,12 +154,6 @@
     display: block;
 }
 
-.ptest-quiz-answer-table{
-	border: none;
-	width: 100%;
-	max-width: 100%;
-	text-align:center;
-}
 
 .ptest-edit-h2{
 	color: #016ABC;
@@ -154,6 +170,21 @@
 	cursor: pointer;
 	background:#016ABC;
 	color: #fff;
+	border: 1px solid #eee;
+	border-radius: 10px;
+}
+
+.ptest-delete-item{
+	background: #FF0000;
+	color: #fff;
+	border: 1px solid #eee;
+	border-radius: 10px;
+}
+
+.ptest-delete-item:hover{
+	cursor: pointer;
+	background: #F2575F;
+	color #fff;
 	border: 1px solid #eee;
 	border-radius: 10px;
 }

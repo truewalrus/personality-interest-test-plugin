@@ -53,7 +53,6 @@
 		$answer_array = array();
 		
 		for ($i=0; $i < count($answers); $i++){
-			echo "Answer: " . $answers[$i] . " TAGS: " . $tags[$i] . " VALUE: " . $value[$i];
 			array_push($answer_array, (array("answer"=>$answers[$i], "tags"=>$tags[$i], "value"=>$value[$i])));
 		}
 		
@@ -76,6 +75,7 @@
 	function removeHover(){
 		document.getElementById('ptest-hover').style.display = "none";
 		document.getElementById('ptest-hidden-hover').style.display = "none";
+		document.getElementById('ptest-question-hover').style.display = "none";
 	}
 	function editQuiz(){
 		document.getElementById('ptest-hover').style.display = "block";
@@ -138,7 +138,8 @@
 	function editQuestion(id, question) {
 		var args = Array.prototype.slice.call(arguments, 2);
 		
-		document.getElementById('ptest-hover').style.display = "block";
+		document.getElementById('ptest-helper-questions').innerHTML = "Edit a question in your quiz."
+		document.getElementById('ptest-question-hover').style.display = "block";
 		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("question-header").innerHTML = "Edit Question";
 		document.getElementById("add-question").style.display="block";
@@ -210,7 +211,7 @@
 			delBut.setAttribute("onclick", "deleteAnswer(this)");
 			delBut.setAttribute("type", "button");
 			delBut.setAttribute("value", "Delete");
-			delBut.setAttribute("class", "ptest-form-submit");
+			delBut.setAttribute("class", "ptest-delete-item");
 			spacer.appendChild(delBut);
 			container.appendChild(spacer);
 
@@ -305,7 +306,7 @@
 		delBut.setAttribute("onclick", "deleteAnswer(this)");
 		delBut.setAttribute("type", "button");
 		delBut.setAttribute("value", "Delete");
-		delBut.setAttribute("class", "ptest-form-submit");
+		delBut.setAttribute("class", "ptest-delete-item");
 		spacer.appendChild(delBut);
 		container.appendChild(spacer);
 
@@ -313,7 +314,8 @@
 	}
 	
 	function addNewQuestion(){
-		document.getElementById('ptest-hover').style.display = "block";
+		document.getElementById('ptest-helper-questions').innerHTML = "Add a new question to your quiz."
+		document.getElementById('ptest-question-hover').style.display = "block";
 		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("question-header").innerHTML = "Add Question";
 		document.getElementById("add-question").style.display="block";
@@ -340,7 +342,7 @@
 				<th>Options</th>
 			</tr>
 			<tr>
-				<th style = "max-width: 300px"><?php echo $quiz->name; ?></th>
+				<th style = "max-width: 55%; width: 55%;"><?php echo $quiz->name; ?></th>
 				<th> <?php echo "[ptest id =" . $quiz->id . "]";?></th>
 				<td> <button class = "ptest-modify-button" onclick = "editQuiz()">Edit Name</button>
 				<span class = "ptest-separator">|</span>
@@ -353,10 +355,10 @@
 		<h2>Results<button class = "ptest-add-symbol" onclick = "addNewResult()" title = "Add a new result">+</button></h2>
 		<table class = "ptest-quiz-table">
 			<tr>
-				<th>#</th>
-				<th>Result Name</th>
-				<th>Tags</th>
-				<th>Options</th>
+				<th style = "max-width: 5%; width: 5%">#</th>
+				<th style = "max-width: 30%; width: 30%">Result Name</th>
+				<th style = "max-width: 50%: width: 50%" style = "max-width: 50%: width: 50%">Tags</th>
+				<th style = "max-width: 15%; width: 15%">Options</th>
 			</tr>
 		<?php 
 		$result_counter = 0;
@@ -364,8 +366,8 @@
 			$result_counter++;?>
 			<tr>
 				<td><?php echo $result_counter; ?></td>
-				<td style = "max-width: 1px"><?php echo $result->name; ?></td>
-				<td style = "max-width: 1px"><?php echo $result->tag; ?></td>
+				<td><?php echo $result->name; ?></td>
+				<td><?php echo $result->tag; ?></td>
 				<td><button class = "ptest-modify-button" onclick = "editResult(<?php  echo $result->id . ", '" . $result->name . "', '" . $result->tag . "'"  ?> )">Edit</button>
 				<span class = "ptest-separator">|</span>				
 				<form name = "result-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post"  style = "display: inline">
@@ -381,10 +383,10 @@
 		<h2>Questions<button class = "ptest-add-symbol" onclick = "addNewQuestion()" title = "Add a new question">+</button></h2>
 		<table class = "ptest-quiz-table">
 			<tr>
-				<th>#</th>
-				<th>Question</th>
-				<th>Answers</th>
-				<th>Options</th>
+				<th style = "width: 5%; max-width: 5%">#</th>
+				<th style = "width: 30%; max-width: 30%; overflow; hidden;">Question</th>
+				<th style = "width: 50%; max-width: 50%">Answers</th>
+				<th style = "width: 15%; max-width: 15%">Options</th>
 			</tr>
 		<?php
 		$question_counter = 0;
@@ -392,14 +394,14 @@
 			$question_counter++;?>
 			<tr>
 				<td><?php echo $question_counter; ?></td>
-				<td style = "max-width: 200px"><?php echo $question->question;?></td>
-				<td style = "max-width: 200px">
+				<td><?php echo $question->question;?></td>
+				<td>
 					<table class = "ptest-quiz-answer-table">
 						<tr>
-							<th>#</th>
-							<th>Answer</th>
-							<th>Tags</th>
-							<th>Value</th>
+							<th style = "width: 5%; max-width:5%">#</th>
+							<th style = " width: 40%; max-width: 40%">Answer</th>
+							<th style = "width: 40%; max-width: 40%">Tags</th>
+							<th style = "width: 10%; max-width: 10%">Value</th>
 						</tr>
 						<?php
 						$click_params = "{$question->id}, \"{$question->question}\"";
@@ -463,10 +465,13 @@
 			</form>
 			<br>
 		</div>
-
+	</div>
+	
+	<div class = "ptest-question-hover" style = "display: none" id = "ptest-question-hover">
 		<div id = "add-question" style = "display: none">
-			<h2 id = "question-header">Add Question</h2>
+			<h2 class = "ptest-edit-h2" id = "question-header">Add Question</h2>
 			<div><span id = "ptest-helper-questions" class = "ptest-helper">Add a new question to your quiz.</div>
+			<br>
 			<form name = "ques_add" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
 				<input type = "hidden" name = "ptest_question_hidden" id = "ptest_question_hidden" value = "edit">
 				<input type = "hidden" name = "ptest_question_id_hidden" id = "ptest_question_id_hidden">
@@ -483,9 +488,8 @@
 				</div>-->
 				<div id = "ptest-answers-form"></div>
 				<!--<table id = "answers"></table>-->
-				<input type = "submit" value = "Submit">
+				<input class = "ptest-form-submit" type = "submit" value = "Save">
 			</form>
-
 		</div>
 	</div>
 	
