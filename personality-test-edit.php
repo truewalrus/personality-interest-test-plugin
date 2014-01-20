@@ -72,6 +72,15 @@
 
 <script type = "text/javascript">
 
+	/*function confirmDelete(form){
+		var del = confirm("You are about to delete an item. Are you sure?");
+		if (del == true){
+			form.submit();
+		}
+		else{
+			
+		}
+	}*/
 	function removeHover(){
 		document.getElementById('ptest-hover').style.display = "none";
 		document.getElementById('ptest-hidden-hover').style.display = "none";
@@ -151,6 +160,7 @@
 		document.getElementById("ptest_question_hidden").value = "edit";		
 		document.getElementById("ptest_question_id_hidden").value = id;
 		document.getElementById("ptest_question_question").value = question;
+		document.getElementById("ptest_question_question").focus();
 		
 		for (var i = 0; i < args.length; i++) {
 			answerCount++;
@@ -324,6 +334,7 @@
 		document.getElementById("ptest-answers-form").innerHTML = '';
 		document.getElementById("ptest_question_hidden").value = "add";
 		document.getElementById("ptest_question_question").value = "";
+		document.getElementById("ptest_question_question").focus();
 		answerCount = 0;
 		addNewAnswer();
 	}
@@ -370,7 +381,7 @@
 				<td><?php echo $result->tag; ?></td>
 				<td><button class = "ptest-modify-button" onclick = "editResult(<?php  echo $result->id . ", '" . $result->name . "', '" . $result->tag . "'"  ?> )">Edit</button>
 				<span class = "ptest-separator">|</span>				
-				<form name = "result-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post"  style = "display: inline">
+				<form onsubmit = "return confirm('Are you sure you want to delete?');" name = "result-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post"  style = "display: inline">
 					<input type = "hidden" name = "ptest_result_delete_hidden" value = "Y">
 					<input type = "hidden" name = "ptest_result_id_hidden" value = "<?php echo $result->id ?>">
 					<input class = "ptest-delete-submit" type = "submit" value = "Delete">
@@ -421,7 +432,7 @@
 				</td>
 				<td><button class = "ptest-modify-button" id="question<?php echo $question->id ?>">Edit</button>
 				<span class = "ptest-separator">|</span>
-				<form name = "question-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post" style = "display: inline">
+				<form onsubmit = "return confirm('Are you sure you want to delete?');" name = "question-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post" style = "display: inline">
 					<input type = "hidden" name = "ptest_question_delete_hidden" value = "Y">
 					<input type = "hidden" name = "ptest_question_id_hidden" value = "<?php echo $question->id ?>">
 					<input class = "ptest-delete-submit" type = "submit" value = "Delete">

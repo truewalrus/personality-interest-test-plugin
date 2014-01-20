@@ -68,6 +68,8 @@
 	left: 0;
 	display: none;
 	z-index: 0;
+	opacity: .5;
+	background: black;
 }
 
 .ptest-display-top{

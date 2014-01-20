@@ -36,22 +36,22 @@
 			?>
 			<table class = "ptest-quiz-table">
 					<tr>
-						<th>#</th>
-						<th>Quiz Name</th>
-						<th>Short Code</th>
-						<th>Options</th>
+						<th style = "max-width: 5%; width: 5%;">#</th>
+						<th style = "max-width: 50%; width: 50%;">Quiz Name</th>
+						<th style = "max-width: 20%; width: 20%;">Short Code</th>
+						<th style = "max-with: 15%; width: 15%;">Options</th>
 					</tr>
 			<?php foreach($quiz_list as $quiz){
 				?><tr>
 					<td> <?php echo $quiz_count++; ?></td>
-					<td style = "max-width: 300px"> <?php echo $quiz->name; ?></td>
+					<td> <?php echo $quiz->name; ?></td>
 					<td> <?php echo "[ptest id=" . $quiz->id . "]"; ?></td>
 					<td> 
 						<?php 
 						$link_url = add_query_arg( array('edit' => 'quiz', 'id' => $quiz->id), $_SERVER["REQUEST_URI"] );?>	
 						<a class = "ptest-modify-link" href = "<?php echo $link_url; ?>">Modify</a>
 						<span class = "ptest-separator">|</span>
-						<form name = "quiz-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post"  style = "display: inline">
+						<form onsubmit = "return confirm('Are you sure you want to delete?');" name = "quiz-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post"  style = "display: inline">
 							<input type = "hidden" name = "ptest_quiz_delete_hidden" value = "Y">
 							<input type = "hidden" name = "ptest_quiz_id_hidden" value = "<?php echo $quiz->id ?>">
 							<input class = "ptest-delete-submit" type = "submit" value = "Delete">
@@ -64,16 +64,19 @@
 		?>
 		</div>
 
-		<div class = "ptest-display-hover" id = "ptest-add-quiz"  style = "display: none">
+		<div class = "ptest-edit-hover" id = "ptest-add-quiz"  style = "display: none">
 			<div id = "add-quiz">
-				<h2>Add New Quiz <button class = "ptest-x-symbol" onclick = "removeHover()" title = "Cancel">x</button></h2>
+				<h2 class = "ptest-edit-h2">Add New Quiz</h2>
+				<div><span class = "ptest-helper">This will add a quiz to your list of quizzes. You can then select Modify to add questions and results to your quiz as well as change its name.</span></div>
+				<br>
 				<form name = "quiz_add" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
 					<div class = "float-form" style = "clear: both">
 					<input type = "hidden" name = "ptest_quiz_name_hidden" value = "Y">
-					Quiz Name: <input type = "text" name = "ptest_quiz_name_add" width = "20">
-					<input style = "clear: both;" type = "submit" value = "Add">
+					<div class = "ptest-form-spacer">Quiz Name:</div> <input type = "text" placeholder = "Quiz Name" class = "ptest-form-input-spacer" name = "ptest_quiz_name_add">
+					<input class = "ptest-form-submit" type = "submit" value = "Save">
 					</div>
 				</form>
+				<br>
 			</div>
 		</div>
 		
