@@ -17,14 +17,19 @@
 	function ptest_quiz_main(){
 		include('personality-test-quiz-main.php');
 	}
+	
+	function ptest_help(){
+		include('personality-test-help.php');
+	}
       
     function ptest_admin_actions() {  
-        add_menu_page("Personality Test", "Personality Test", 'manage_options', "Personality_Test", "ptest_admin");
+        add_menu_page("Personality Test", "Ptest Dashboard", 'manage_options', "Personality_Test", "ptest_admin");
     }  
     add_action('admin_menu', 'ptest_admin_actions');
 	
 	function ptest_quiz_main_actions() {
-		add_submenu_page("Personality_Test", "Test List", "Test List", 'manage_options', "Test", "ptest_quiz_main");
+		add_submenu_page("Personality_Test", "Quiz List", "Quiz List", 'manage_options', "Quiz", "ptest_quiz_main");
+		add_submenu_page("Personality_Test", "Help", "Help", 'manage_options', "Help", "ptest_help");
 	}
 	add_action('admin_menu', 'ptest_quiz_main_actions');
 	
