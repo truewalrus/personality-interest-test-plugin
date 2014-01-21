@@ -14,7 +14,9 @@ function ptest_insert_quiz($name){
 	
 	global $wpdb;
 	
-	$data = array('name'=>$name);
+	$default_results_page = "<h2>Your result is [result]!</h2>\n<p>[description]</p>";
+	
+	$data = array('name'=>$name, 'results_page'=>$default_results_page);
 	
 	$wpdb->insert($wpdb->prefix . "ptest_quizzes", $data);
 	
