@@ -60,6 +60,7 @@
 						name tinytext,
 						quiz_id int,
 						tag tinytext,
+						description text,
 						PRIMARY KEY id (id)
 						);";
 					   

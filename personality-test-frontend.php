@@ -88,7 +88,7 @@
 		
 		// Grab the quiz result categories from the database.
 		$result_db = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}ptest_results WHERE quiz_id = {$_POST['ptest_id']}");
-		$total = array( array ( ), array ( ) );
+		$total = array( array ( ), array ( ), array( ) );
 		
 		$highest_total = -1;
 		$highest_result = -1;
@@ -97,6 +97,7 @@
 		foreach( $result_db as $result ) {
 			// Add it's title to the final results array
 			array_push( $total[0], $result->name );
+			array_push( $total[2], $result->description );
 			$tags = array ( );
 			
 			// If it has associated tags, parse them into an array.
@@ -145,8 +146,11 @@
 			
 			$tag = strtok(']');
 			
-			if ($tag === "result" && $highest_result >= 0) {
+			if( $tag === "result" && $highest_result >= 0 ) {
 				$final_result_page .= $total[0][$highest_result];
+			}
+			elseif( $tag === "description" ) {
+				$final_result_page .= $total[2][$highest_result];
 			}
 			else {
 				$final_result_page .= $tag;

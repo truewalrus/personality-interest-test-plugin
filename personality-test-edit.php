@@ -10,12 +10,12 @@
 	}
 	if($_POST['ptest_result_add_hidden'] == 'add')
 	{
-		$result = array('name'=>$_POST['ptest_result_name'], 'tags'=>$_POST['ptest_result_tags']);
+		$result = array('name'=>$_POST['ptest_result_name'], 'tags'=>$_POST['ptest_result_tags'], 'description'=>$_POST['ptest_result_description']);
 		ptest_insert_result($parsed_url['id'], $result);
 	}
 	if($_POST['ptest_result_add_hidden'] == 'edit')
 	{
-		$result = array('name'=>$_POST['ptest_result_name'], 'tags'=>$_POST['ptest_result_tags']);
+		$result = array('name'=>$_POST['ptest_result_name'], 'tags'=>$_POST['ptest_result_tags'], 'description'=>$_POST['ptest_result_description']);
 		$result_id = $_POST['ptest_result_id_hidden'];
 		ptest_update_result($result_id, $result);
 	}
@@ -108,9 +108,10 @@
 		document.getElementById("ptest_result_id_hidden").value = "";
 		document.getElementById("ptest_result_tags").value = "";
 		document.getElementById("ptest_result_name").focus();
+		document.getElementById("ptest_result_description").value = "";
 	}
 	
-	function editResult(id, name, tags){
+	function editResult(id, name, tags, description){
 		document.getElementById('ptest-hover').style.display = "block";
 		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("result-header").innerHTML = "Edit Result";
@@ -123,6 +124,7 @@
 		document.getElementById("ptest_result_id_hidden").value = id;
 		document.getElementById("ptest_result_tags").value = tags;
 		document.getElementById("ptest_result_name").focus();
+		document.getElementById("ptest_result_description").value = description;
 	}
 	
 	var answerCount = 0;
@@ -379,7 +381,7 @@
 				<td><?php echo $result_counter; ?></td>
 				<td><?php echo $result->name; ?></td>
 				<td><?php echo $result->tag; ?></td>
-				<td><button class = "ptest-modify-button" onclick = "editResult(<?php  echo $result->id . ", '" . $result->name . "', '" . $result->tag . "'"  ?> )">Edit</button>
+				<td><button class = "ptest-modify-button" onclick = "editResult(<?php  echo $result->id . ", '" . $result->name . "', '" . $result->tag . "', '" . $result->description . "'"  ?> )">Edit</button>
 				<span class = "ptest-separator">|</span>				
 				<form onsubmit = "return confirm('Are you sure you want to delete?');" name = "result-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post"  style = "display: inline">
 					<input type = "hidden" name = "ptest_result_delete_hidden" value = "Y">
@@ -472,6 +474,8 @@
 				<div class = "ptest-form-spacer">Result Name:</div> <input type = "text" placeholder = "Result Name" name = "ptest_result_name" id = "ptest_result_name" class = "ptest-form-input-spacer" required>
 				<br>
 				<div class = "ptest-form-spacer">Tags:</div> <input type = "text" placeholder = "tag1, tag2" name = "ptest_result_tags" id = "ptest_result_tags" class = "ptest-form-input-spacer" required>
+				<br>
+				<div class = "ptest-form-spacer">Description:</div> <input type = "text" placeholder = "description" name = "ptest_result_description" id = "ptest_result_description" class = "ptest-form-input-spacer">
 				<br><div style = "display: inline-block; width: 87%"></div><input class = "ptest-form-submit" type = "submit" value = "Save">
 			</form>
 			<br>
