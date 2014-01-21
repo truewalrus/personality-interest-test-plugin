@@ -197,6 +197,8 @@
 }
 
 .ptest-form-spacer{
+	vertical-align: top;
+	padding-top: 0.3em;
 	min-width: 10%;
 	max-width: 10%;
 	display: inline-block;
