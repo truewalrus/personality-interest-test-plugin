@@ -124,7 +124,7 @@
 		document.getElementById("ptest_result_id_hidden").value = id;
 		document.getElementById("ptest_result_tags").value = tags;
 		document.getElementById("ptest_result_name").focus();
-		document.getElementById("ptest_result_description").value = description;
+		document.getElementById("ptest_result_description").innerHTML = description;
 	}
 	
 	var answerCount = 0;
@@ -370,7 +370,8 @@
 			<tr>
 				<th style = "max-width: 5%; width: 5%">#</th>
 				<th style = "max-width: 30%; width: 30%">Result Name</th>
-				<th style = "max-width: 50%: width: 50%" style = "max-width: 50%: width: 50%">Tags</th>
+				<th style = "max-width: 15%: width: 15%" style = "max-width: 15%: width: 15%">Tags</th>
+				<th style = "max-width: 35%: width: 35%" style = "max-width: 35%: width: 35%">Description</th>
 				<th style = "max-width: 15%; width: 15%">Options</th>
 			</tr>
 		<?php 
@@ -381,6 +382,7 @@
 				<td><?php echo $result_counter; ?></td>
 				<td><?php echo $result->name; ?></td>
 				<td><?php echo $result->tag; ?></td>
+				<td><?php echo stripslashes( $result->description ); ?></td>
 				<td><button class = "ptest-modify-button" onclick = "editResult(<?php  echo $result->id . ", '" . $result->name . "', '" . $result->tag . "', '" . $result->description . "'"  ?> )">Edit</button>
 				<span class = "ptest-separator">|</span>				
 				<form onsubmit = "return confirm('Are you sure you want to delete?');" name = "result-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post"  style = "display: inline">
@@ -475,7 +477,7 @@
 				<br>
 				<div class = "ptest-form-spacer">Tags:</div> <input type = "text" placeholder = "tag1, tag2" name = "ptest_result_tags" id = "ptest_result_tags" class = "ptest-form-input-spacer" required>
 				<br>
-				<div class = "ptest-form-spacer">Description:</div> <input type = "text" placeholder = "description" name = "ptest_result_description" id = "ptest_result_description" class = "ptest-form-input-spacer">
+				<div class = "ptest-form-spacer">Description:</div> <textarea placeholder = "description" name = "ptest_result_description" id = "ptest_result_description" class = "ptest-form-input-spacer"></textarea><!--<input type = "text"  >-->
 				<br><div style = "display: inline-block; width: 87%"></div><input class = "ptest-form-submit" type = "submit" value = "Save">
 			</form>
 			<br>

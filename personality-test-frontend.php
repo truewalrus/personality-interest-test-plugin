@@ -159,6 +159,6 @@
 			$tok = strtok('[');
 		}
 		
-		echo $final_result_page;
+		echo stripslashes( $final_result_page );
 	?>
 <?php } ?>
