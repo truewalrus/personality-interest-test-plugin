@@ -1,3 +1,10 @@
+<script type = "text/javascript">
+	function addMargin(){
+		window.scrollTo(0, window.pageYOffset - 30);
+	}
+	window.addEventListener('hashchange', addMargin);
+</script>
+
 <div class = "wrap">
 	<h2>Help</h2>
 	Table of Contents:
