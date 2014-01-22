@@ -235,6 +235,7 @@
 	font-weight: 400;
 	line-height: 29px;
 	padding: 9px 15px 4px 0;
+	margin-left: 2%;
 }
 
 .ptest-help-ol-p{
@@ -245,4 +246,11 @@
 
 .ptest-answers {
 	list-style: none;
+}
+
+.ptest-toc{
+	padding-left: 10px;
+	border-bottom: 1px solid grey;
+	border-left: 1px solid grey;
+	border-radius: 10px;
 }
