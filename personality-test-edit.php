@@ -96,7 +96,7 @@
 	}
 	
 	function addNewResult(){
-		document.getElementById('ptest-hover').style.display = "block";
+		document.getElementById('ptest-question-hover').style.display = "block";
 		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("result-header").innerHTML = "Add Result";
 		document.getElementById("ptest-helper-results").innerHTML = "Add a new Result to your quiz.  The name of the Result is how it will appear at the end of your quiz.<br> Results match with answers by matching tags and counting values. A result can have multiple comma separated tags (ex: tag1, tag2, tag3).";
@@ -112,7 +112,7 @@
 	}
 	
 	function editResult(id, name, tags, description){
-		document.getElementById('ptest-hover').style.display = "block";
+		document.getElementById('ptest-question-hover').style.display = "block";
 		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("result-header").innerHTML = "Edit Result";
 		document.getElementById("ptest-helper-results").innerHTML = "Edit a result's name or tags.";
@@ -465,7 +465,8 @@
 			</form>
 			<br>
 		</div>
-
+	</div>
+	<div class = "ptest-question-hover" style = "display: none" id = "ptest-question-hover">
 		<div id = "add-result" style = "display: none">
 			<h2 class = "ptest-edit-h2" id = "result-header">Add Result</h2>
 			<div><span id = "ptest-helper-results" class = "ptest-helper">Add a new Result to your quiz.  The name of the Result is how it will appear at the end of your quiz.<br> Results match with answers by matching tags and counting values. A result can have multiple comma separated tags (ex: tag1, tag2, tag3).</span></div>
@@ -482,9 +483,7 @@
 			</form>
 			<br>
 		</div>
-	</div>
 	
-	<div class = "ptest-question-hover" style = "display: none" id = "ptest-question-hover">
 		<div id = "add-question" style = "display: none">
 			<h2 class = "ptest-edit-h2" id = "question-header">Add Question</h2>
 			<div><span id = "ptest-helper-questions" class = "ptest-helper">Add a new question to your quiz.</div>

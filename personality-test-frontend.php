@@ -6,22 +6,26 @@
 <?php 
 	// If the quiz was not submitted, then load the questions for display.
 	if( !$_POST['ptest_results'] ) { 
+		$quiz = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}ptest_quizzes WHERE id = {$_POST['ptest_id']}");
 		$questions = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}ptest_questions WHERE quiz_id = {$_POST['ptest_id']}");
 ?>
 
 	<form name="ptest_quiz" method="post" action="<?php echo $_SERVER['REQUEST_URI'] ?>">	
 		<?php 
-		$count = 0;	
+		$count = 1;			
+		?>
+		<h3 class = "ptest-quiz"><?php echo $quiz[0]->name ?></h3>
+		<?php
 		// For each question in the quiz...
 		foreach( $questions as $question ) {
 			// Display the question text. ?>	
-			<h2 class="ptest-question"><?php echo $question->question ?></h2>
+			<h5 class="ptest-question"><?php echo $count . ". " . $question->question ?></h5>
 			<?php
 				// Retrieve the answers for the question.
 				$answers = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}ptest_answers WHERE question_id = {$question->id}");
 			?>
-			<p>
-				<ul style="list-style: none;" class="ptest-answers">
+			<div class = "ptest-answer-box">
+				<ul class="ptest-answers">
 					<?php
 						// For each answer in this question...
 						foreach( $answers as $answer ) { 
@@ -29,7 +33,7 @@
 							<li><input type="radio" name="ptest_answer[<?php echo $count ?>]" value="<?php echo $answer->id ?>"> <?php echo $answer->answer ?></li>
 					<?php } ?>
 				</ul>
-			</p>
+			</div>
 		<?php 
 		// Increase the question total (used for form element indexing)
 		$count++;

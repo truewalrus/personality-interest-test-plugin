@@ -3,23 +3,6 @@
 	height:100%
 }
 
-.ptest-display-left{
-	width:50%;
-	float: left;
-	border: 1px solid red;
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	text-align: center;
-}
-
-.ptest-display-right{
-	width:50%;
-	float: right;
-	border: 1px solid black;
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-}
-
 .ptest-stacking-container{
 	position: relative;
 }
@@ -242,10 +225,6 @@
 	font-weight: 0;
 	font-size: 13px;
 	line-height: 1.4em;
-}
-
-.ptest-answers {
-	list-style: none;
 }
 
 .ptest-toc{
