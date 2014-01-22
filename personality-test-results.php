@@ -12,10 +12,10 @@
 ?>
 
 <script type = "text/javascript">
+	var originalResultsPage = "<?php echo preg_replace( "~[\r\n]+~", "\\n", $quiz[0]->results_page ); ?>";	
 
-	function removeHover(){
-		document.getElementById('ptest-hover').style.display = "none";
-		document.getElementById('ptest-hidden-hover').style.display = "none";
+	function resetChanges(){
+		document.getElementById('ptest-results-page').value = originalResultsPage;
 	}
 	
 </script>
@@ -28,7 +28,7 @@
 		<img src="<?php echo plugins_url( "images/dog.jpg", __FILE__ ); ?>">
 		<form name = "result_page_edit" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
 			<input type="hidden" name="ptest_edit_result_page" value="Y">
-			<textarea class="ptest-results-page-edit" name="ptest_results_page"><?php echo htmlspecialchars( $quiz[0]->results_page ); ?></textarea>
+			<textarea class="ptest-results-page-edit" name="ptest_results_page" id="ptest-results-page"><?php echo stripslashes( htmlspecialchars( $quiz[0]->results_page ) ); ?></textarea>
 			<input class = "ptest-form-submit" type = "submit" value = "Save Changes">
 			<input class = "ptest-delete-item" type="button" onclick="resetChanges()" value="Reset">
 		</form>
