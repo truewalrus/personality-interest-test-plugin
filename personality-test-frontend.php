@@ -21,7 +21,7 @@
 				$answers = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}ptest_answers WHERE question_id = {$question->id}");
 			?>
 			<p>
-				<ul style="list-style: none;" class="ptest-answers">
+				<ul class="ptest-answers">
 					<?php
 						// For each answer in this question...
 						foreach( $answers as $answer ) { 
@@ -76,6 +76,7 @@
 			// Loop through the created tags array
 			$tag_count = count($tags);
 			for( $i = 0; $i < $tag_count; $i++ ) {
+				$tags[$i] = trim( strtoupper( $tags[$i] ) );
 				if( array_key_exists( $tags[$i], $results ) ) {
 					// If the tag already exists in the results array (a previous answer has added to it), add the current answer's value to the current tag's value.
 					$results[$tags[$i]] += intval($answer->value);
@@ -110,10 +111,10 @@
 			
 			// For each tag associated with the result
 			foreach( $tags as $tag ) {
-				if( array_key_exists( $tag, $results ) ) {
+				if( array_key_exists( trim( strtoupper( $tag ) ), $results ) ) {
 					// If the tag exists in the previously created array of tags and totals...
 					// ...add that tag's total to the current result's total.
-					$result_total += $results[$tag];
+					$result_total += $results[trim( strtoupper( $tag ) )];
 				}
 			}
 			
