@@ -242,3 +242,7 @@
 	font-size: 13px;
 	line-height: 1.4em;
 }
+
+.ptest-answers {
+	list-style: none;
+}
