@@ -29,8 +29,8 @@
 		<form name = "result_page_edit" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
 			<input type="hidden" name="ptest_edit_result_page" value="Y">
 			<textarea class="ptest-results-page-edit" name="ptest_results_page" id="ptest-results-page"><?php echo stripslashes( htmlspecialchars( $quiz[0]->results_page ) ); ?></textarea>
-			<input type = "submit" value = "Save Changes">
-			<input type="button" onClick="resetChanges()" value="Reset">
+			<input class = "ptest-form-submit" type = "submit" value = "Save Changes">
+			<input class = "ptest-delete-item" type="button" onclick="resetChanges()" value="Reset">
 		</form>
 	</div>
 </div>
