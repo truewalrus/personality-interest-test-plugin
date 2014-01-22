@@ -15,13 +15,13 @@
 		// For each question in the quiz...
 		foreach( $questions as $question ) {
 			// Display the question text. ?>	
-			<h2><?php echo $question->question ?></h2>
+			<h2 class="ptest-question"><?php echo $question->question ?></h2>
 			<?php
 				// Retrieve the answers for the question.
 				$answers = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}ptest_answers WHERE question_id = {$question->id}");
 			?>
 			<p>
-				<ul style="list-style: none;" class="answers">
+				<ul style="list-style: none;" class="ptest-answers">
 					<?php
 						// For each answer in this question...
 						foreach( $answers as $answer ) { 
