@@ -303,7 +303,7 @@
 	}
 	
 	function addNewQuestion(){
-		document.getElementById('ptest-helper-questions').innerHTML = "Add a new question to your quiz."
+		document.getElementById('ptest-helper-questions').innerHTML = "Add a new question to your quiz. The name of the question is how it will appear in your quiz. <br>Answers match with Results by matching tags and counting values. An Answer can have multiple comma separated tags (ex: tag1, tag2, tag3). <br> To add a new answer to your question, select the <span class = 'ptest-add-symbol'>+</span> below the question input box."
 		document.getElementById('ptest-question-hover').style.display = "block";
 		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("ptest-question-header").innerHTML = "Add Question";
@@ -446,7 +446,7 @@
 	<div class = "ptest-question-hover" style = "display: none" id = "ptest-question-hover">
 		<div id = "ptest-add-result" style = "display: none">
 			<h2 class = "ptest-edit-h2" id = "result-header">Add Result</h2>
-			<div><span id = "ptest-helper-results" class = "ptest-helper">Add a new Result to your quiz.  The name of the Result is how it will appear at the end of your quiz.<br> Results match with answers by matching tags and counting values. A result can have multiple comma separated tags (ex: tag1, tag2, tag3).</span></div>
+			<div><span id = "ptest-helper-results" class = "ptest-helper">Add a new result to your quiz.  The name of the result is how it will appear at the end of your quiz.<br> Results match with Answers by matching tags and counting values. A result can have multiple comma separated tags (ex: tag1, tag2, tag3).</span></div>
 			<br>
 			<form name = "ptest-result" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
 				<input type = "hidden" name = "ptest_result_add_hidden" id = "ptest_result_add_hidden" value = "edit">
@@ -463,7 +463,7 @@
 	
 		<div id = "ptest-add-question" style = "display: none">
 			<h2 class = "ptest-edit-h2" id = "ptest-question-header">Add Question</h2>
-			<div><span id = "ptest-helper-questions" class = "ptest-helper">Add a new question to your quiz.</div>
+			<div><span id = "ptest-helper-questions" class = "ptest-helper">Add a new question to your quiz. The name of the question is how it will appear in your quiz. <br> Answers match with Results by matching tags and counting values. An Answer can have multiple comma separated tags (ex: tag1, tag2, tag3). <br> To add a new answer to your question, select the <span class = "ptest-add-symbol">+</span> below the question. </div>
 			<br>
 			<form name = "ptest-ques-add" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
 				<input type = "hidden" name = "ptest_question_hidden" id = "ptest_question_hidden" value = "edit">
