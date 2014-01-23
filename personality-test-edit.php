@@ -456,6 +456,13 @@
 				<div class = "ptest-form-spacer">Tags:</div> <input type = "text" placeholder = "tag1, tag2" name = "ptest_result_tags" id = "ptest_result_tags" class = "ptest-form-input-spacer" required>
 				<br>
 				<div class = "ptest-form-spacer">Description:</div> <textarea placeholder = "Description" name = "ptest_result_description" id = "ptest_result_description" class = "ptest-form-input-spacer"></textarea><!--<input type = "text"  >-->
+				<div>
+				<label for = "upload_image">
+					<input id = "upload_image" type = "text" size = "36' name = "ad_image" value = "http://">
+					<input id = "upload_image_button" class = "button" type = "button" value = "Upload Image">
+					<br>Enter a URL or upload an image
+				</label>
+				</div>
 				<br><div style = "display: inline-block; width: 87%"></div><input class = "ptest-form-submit" type = "submit" value = "Save">
 			</form>
 			<br>

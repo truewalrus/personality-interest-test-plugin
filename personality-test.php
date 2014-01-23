@@ -45,6 +45,15 @@
 	}
 	add_action('wp_enqueue_scripts', 'ptest_add_frontend_stylesheet');
 	
+	function ptest_admin_scripts(){
+		if (isset($_GET['page']) && $_GET['page'] == 'Quiz'){
+			wp_enqueue_media();
+			wp_register_script('personality-test-admin.js', plugins_url().'/personality-test/personality-test-admin.js', array('jquery'));
+			wp_enqueue_script('personality-test-admin.js');
+		}
+	}
+	add_action('admin_enqueue_scripts', 'ptest_admin_scripts');
+	
 	function ptest_database_init(){
 
 		global $wpdb;
