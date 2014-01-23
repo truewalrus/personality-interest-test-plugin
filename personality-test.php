@@ -1,7 +1,7 @@
 <?php
 /* 
 	Plugin Name: Personality Test
-	Description: Plugin for creating a Personality Test based on interest in subjects
+	Description: Plugin for creating easily modifiable Personality, Interest, or Which Character are You? tests and quizzes.
 	Author: J. Levy and B. Bower
 	Version: 1.0 
 	Author URI: http://www.trurek.com

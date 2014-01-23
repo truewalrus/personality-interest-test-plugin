@@ -51,7 +51,7 @@
 						$link_url = add_query_arg( array('edit' => 'quiz', 'id' => $quiz->id), $_SERVER["REQUEST_URI"] );?>	
 						<a class = "ptest-modify-link" href = "<?php echo $link_url; ?>">Modify</a>
 						<span class = "ptest-separator">|</span>
-						<form onsubmit = "return confirm('Are you sure you want to delete?');" name = "quiz-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post"  style = "display: inline">
+						<form onsubmit = "return confirm('Are you sure you want to delete?');" name = "ptest-quiz-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post"  style = "display: inline">
 							<input type = "hidden" name = "ptest_quiz_delete_hidden" value = "Y">
 							<input type = "hidden" name = "ptest_quiz_id_hidden" value = "<?php echo $quiz->id ?>">
 							<input class = "ptest-delete-submit" type = "submit" value = "Delete">
@@ -65,19 +65,15 @@
 		</div>
 
 		<div class = "ptest-edit-hover" id = "ptest-add-quiz"  style = "display: none">
-			<div id = "add-quiz">
-				<h2 class = "ptest-edit-h2">Add New Quiz</h2>
-				<div><span class = "ptest-helper">This will add a quiz to your list of quizzes. You can then select Modify to add questions and results to your quiz as well as change its name.</span></div>
-				<br>
-				<form name = "quiz_add" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
-					<div class = "float-form" style = "clear: both">
-					<input type = "hidden" name = "ptest_quiz_name_hidden" value = "Y">
-					<div class = "ptest-form-spacer">Quiz Name:</div> <input type = "text" placeholder = "Quiz Name" class = "ptest-form-input-spacer" name = "ptest_quiz_name_add">
-					<input class = "ptest-form-submit" type = "submit" value = "Save">
-					</div>
-				</form>
-				<br>
-			</div>
+			<h2 class = "ptest-edit-h2">Add New Quiz</h2>
+			<div><span class = "ptest-helper">This will add a quiz to your list of quizzes. You can then select Modify to add questions and results to your quiz as well as change its name.</span></div>
+			<br>
+			<form name = "ptest_quiz_add" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
+				<input type = "hidden" name = "ptest_quiz_name_hidden" value = "Y">
+				<div class = "ptest-form-spacer">Quiz Name:</div> <input type = "text" placeholder = "Quiz Name" class = "ptest-form-input-spacer" name = "ptest_quiz_name_add">
+				<input class = "ptest-form-submit" type = "submit" value = "Save">
+			</form>
+			<br>
 		</div>
 		
 		<div class = "ptest-display-hidden-hover-closer" id = "ptest-display-hidden" onclick = "removeHover()"></div>
