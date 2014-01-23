@@ -89,7 +89,7 @@
 	function editQuiz(){
 		document.getElementById('ptest-hover').style.display = "block";
 		document.getElementById('ptest-hidden-hover').style.display = "block";
-		document.getElementById("edit-quiz").style.display="block";
+		document.getElementById("ptest-edit-quiz").style.display="block";
 		document.getElementById("add-result").style.display="none";
 		document.getElementById("add-question").style.display="none";
 		document.getElementById("ptest_quiz_name_change").focus();
@@ -102,7 +102,7 @@
 		document.getElementById("ptest-helper-results").innerHTML = "Add a new Result to your quiz.  The name of the Result is how it will appear at the end of your quiz.<br> Results match with answers by matching tags and counting values. A result can have multiple comma separated tags (ex: tag1, tag2, tag3).";
 		document.getElementById("ptest_result_add_hidden").value="add";
 		document.getElementById("add-result").style.display="block";
-		document.getElementById("edit-quiz").style.display="none";
+		document.getElementById("ptest-edit-quiz").style.display="none";
 		document.getElementById("add-question").style.display="none";
 		document.getElementById("ptest_result_name").value = "";
 		document.getElementById("ptest_result_id_hidden").value = "";
@@ -118,7 +118,7 @@
 		document.getElementById("ptest-helper-results").innerHTML = "Edit a result's name or tags.";
 		document.getElementById("ptest_result_add_hidden").value="edit";
 		document.getElementById("add-result").style.display="block";
-		document.getElementById("edit-quiz").style.display="none";
+		document.getElementById("ptest-edit-quiz").style.display="none";
 		document.getElementById("add-question").style.display="none";
 		document.getElementById("ptest_result_name").value = name;
 		document.getElementById("ptest_result_id_hidden").value = id;
@@ -155,7 +155,7 @@
 		document.getElementById("question-header").innerHTML = "Edit Question";
 		document.getElementById("add-question").style.display="block";
 		document.getElementById("add-result").style.display="none";
-		document.getElementById("edit-quiz").style.display="none";
+		document.getElementById("ptest-edit-quiz").style.display="none";
 		document.getElementById("ptest-answers-form").innerHTML = "";
 		answerCount = 0;
 		
@@ -332,7 +332,7 @@
 		document.getElementById("question-header").innerHTML = "Add Question";
 		document.getElementById("add-question").style.display="block";
 		document.getElementById("add-result").style.display="none";
-		document.getElementById("edit-quiz").style.display="none";
+		document.getElementById("ptest-edit-quiz").style.display="none";
 		document.getElementById("ptest-answers-form").innerHTML = '';
 		document.getElementById("ptest_question_hidden").value = "add";
 		document.getElementById("ptest_question_question").value = "";
@@ -454,7 +454,7 @@
 
 
 	<div class = "ptest-edit-hover" style = "display: none" id = "ptest-hover">
-		<div id = "edit-quiz" style = "display: none">
+		<div id = "ptest-edit-quiz" style = "display: none">
 			<h2 class = "ptest-edit-h2">Edit Quiz Name</h2>
 			<div><span class = "ptest-helper">This is the name of the quiz as it will appear on your website.</span></div>
 			<br>

@@ -26,7 +26,7 @@
 		<a href = "<?php echo add_query_arg( array('edit' => 'quiz'), $_SERVER["REQUEST_URI"] ); ?>"> Back </a>
 		<h2>Quiz Results Page</h2>
 		<img src="<?php echo plugins_url( "images/dog.jpg", __FILE__ ); ?>">
-		<form name = "result_page_edit" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
+		<form name = "ptest_result_page_edit" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
 			<input type="hidden" name="ptest_edit_result_page" value="Y">
 			<textarea class="ptest-results-page-edit" name="ptest_results_page" id="ptest-results-page"><?php echo stripslashes( htmlspecialchars( $quiz[0]->results_page ) ); ?></textarea>
 			<input class = "ptest-form-submit" type = "submit" value = "Save Changes">
