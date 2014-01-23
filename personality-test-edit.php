@@ -124,7 +124,7 @@
 		document.getElementById("ptest_result_id_hidden").value = id;
 		document.getElementById("ptest_result_tags").value = tags;
 		document.getElementById("ptest_result_name").focus();
-		document.getElementById("ptest_result_description").innerHTML = description;
+		document.getElementById("ptest_result_description").value = description;
 	}
 	
 	var answerCount = 0;
