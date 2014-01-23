@@ -109,6 +109,7 @@
 		document.getElementById("ptest_result_tags").value = "";
 		document.getElementById("ptest_result_name").focus();
 		document.getElementById("ptest_result_description").value = "";
+		document.getElementById("upload_image").value = "";
 	}
 	
 	function editResult(id, name, tags, description, image){
