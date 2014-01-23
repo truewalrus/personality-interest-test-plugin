@@ -10,12 +10,12 @@
 	}
 	if($_POST['ptest_result_add_hidden'] == 'add')
 	{
-		$result = array('name'=>$_POST['ptest_result_name'], 'tags'=>$_POST['ptest_result_tags'], 'description'=>$_POST['ptest_result_description']);
+		$result = array('name'=>$_POST['ptest_result_name'], 'tags'=>$_POST['ptest_result_tags'], 'description'=>$_POST['ptest_result_description'], 'image'=>$_POST['ptest_add_image']);
 		ptest_insert_result($parsed_url['id'], $result);
 	}
 	if($_POST['ptest_result_add_hidden'] == 'edit')
 	{
-		$result = array('name'=>$_POST['ptest_result_name'], 'tags'=>$_POST['ptest_result_tags'], 'description'=>$_POST['ptest_result_description']);
+		$result = array('name'=>$_POST['ptest_result_name'], 'tags'=>$_POST['ptest_result_tags'], 'description'=>$_POST['ptest_result_description'], 'image'=>$_POST['ptest_add_image']);
 		$result_id = $_POST['ptest_result_id_hidden'];
 		ptest_update_result($result_id, $result);
 	}
@@ -99,7 +99,7 @@
 		document.getElementById('ptest-question-hover').style.display = "block";
 		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("result-header").innerHTML = "Add Result";
-		document.getElementById("ptest-helper-results").innerHTML = "Add a new Result to your quiz.  The name of the Result is how it will appear at the end of your quiz.<br> Results match with answers by matching tags and counting values. A result can have multiple comma separated tags (ex: tag1, tag2, tag3).";
+		document.getElementById("ptest-helper-results").innerHTML = "Add a new result to your quiz.  The name of the result is how it will appear at the end of your quiz.<br> Results match with answers by matching tags and counting values. A result can have multiple comma separated tags (ex: tag1, tag2, tag3).<br>The image is an optional upload that can be shown along with the description on completion of a quiz.";
 		document.getElementById("ptest_result_add_hidden").value="add";
 		document.getElementById("ptest-add-result").style.display="block";
 		document.getElementById("ptest-edit-quiz").style.display="none";
@@ -115,7 +115,7 @@
 		document.getElementById('ptest-question-hover').style.display = "block";
 		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("result-header").innerHTML = "Edit Result";
-		document.getElementById("ptest-helper-results").innerHTML = "Edit a result's name or tags.";
+		document.getElementById("ptest-helper-results").innerHTML = "Edit a result's name, tags, description, or image.";
 		document.getElementById("ptest_result_add_hidden").value="edit";
 		document.getElementById("ptest-add-result").style.display="block";
 		document.getElementById("ptest-edit-quiz").style.display="none";
@@ -446,7 +446,7 @@
 	<div class = "ptest-question-hover" style = "display: none" id = "ptest-question-hover">
 		<div id = "ptest-add-result" style = "display: none">
 			<h2 class = "ptest-edit-h2" id = "result-header">Add Result</h2>
-			<div><span id = "ptest-helper-results" class = "ptest-helper">Add a new result to your quiz.  The name of the result is how it will appear at the end of your quiz.<br> Results match with Answers by matching tags and counting values. A result can have multiple comma separated tags (ex: tag1, tag2, tag3).</span></div>
+			<div><span id = "ptest-helper-results" class = "ptest-helper">Add a new result to your quiz.  The name of the result is how it will appear at the end of your quiz.<br> Results match with answers by matching tags and counting values. A result can have multiple comma separated tags (ex: tag1, tag2, tag3).<br>The image is an optional upload that can be shown along with the description on completion of a quiz.</span></div>
 			<br>
 			<form name = "ptest-result" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
 				<input type = "hidden" name = "ptest_result_add_hidden" id = "ptest_result_add_hidden" value = "edit">
@@ -456,12 +456,12 @@
 				<div class = "ptest-form-spacer">Tags:</div> <input type = "text" placeholder = "tag1, tag2" name = "ptest_result_tags" id = "ptest_result_tags" class = "ptest-form-input-spacer" required>
 				<br>
 				<div class = "ptest-form-spacer">Description:</div> <textarea placeholder = "Description" name = "ptest_result_description" id = "ptest_result_description" class = "ptest-form-input-spacer"></textarea><!--<input type = "text"  >-->
-				<div>
-				<label for = "upload_image">
-					<input id = "upload_image" type = "text" size = "36' name = "ad_image" value = "http://">
-					<input id = "upload_image_button" class = "button" type = "button" value = "Upload Image">
-					<br>Enter a URL or upload an image
-				</label>
+				<div style = "max-width: 90%; min-width: 90%">
+					<label for = "upload_image">
+						<div class = "ptest-form-spacer">Image:</div> 
+						<input style = "min-width:75%; max-width:75%; display: inline-block;" id = "upload_image" type = "text" size = "36" name = "ptest_add_image" value = "http://">
+						<input style = "min-width:15%; max-width: 15%; display:inline-block;" id = "upload_image_button" class = "button" type = "button" value = "Upload Image">
+					</label>
 				</div>
 				<br><div style = "display: inline-block; width: 87%"></div><input class = "ptest-form-submit" type = "submit" value = "Save">
 			</form>
@@ -470,7 +470,7 @@
 	
 		<div id = "ptest-add-question" style = "display: none">
 			<h2 class = "ptest-edit-h2" id = "ptest-question-header">Add Question</h2>
-			<div><span id = "ptest-helper-questions" class = "ptest-helper">Add a new question to your quiz. The name of the question is how it will appear in your quiz. <br> Answers match with Results by matching tags and counting values. An Answer can have multiple comma separated tags (ex: tag1, tag2, tag3). <br> To add a new answer to your question, select the <span class = "ptest-add-symbol">+</span> below the question. </div>
+			<div><span id = "ptest-helper-questions" class = "ptest-helper">Add a new question to your quiz. The name of the question is how it will appear in your quiz. <br> Answers match with Results by matching tags and counting values. An answer can have multiple comma separated tags (ex: tag1, tag2, tag3). <br> To add a new answer to your question, select the <span class = "ptest-add-symbol">+</span> below the question. </div>
 			<br>
 			<form name = "ptest-ques-add" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
 				<input type = "hidden" name = "ptest_question_hidden" id = "ptest_question_hidden" value = "edit">
