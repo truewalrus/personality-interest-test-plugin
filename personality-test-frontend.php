@@ -39,7 +39,11 @@
 		$count++;
 		} ?>
 		<input type="hidden" name="ptest_results" value="true">
-		<input type="submit" <?php if( $_POST['ptest_submit'] ) { echo "value=\"{$_POST['ptest_submit']}\""; } ?>>
+		<input type="submit" <?php 
+			if( $_POST['ptest_submit'] ) 
+				{ echo "value=\"{$_POST['ptest_submit']}\""; }
+			else{
+				echo "value = 'Submit Answers'"; }?>>
 	</form>
 	
 <?php 
