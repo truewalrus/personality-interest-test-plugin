@@ -456,13 +456,11 @@
 				<div class = "ptest-form-spacer">Tags:</div> <input type = "text" placeholder = "tag1, tag2" name = "ptest_result_tags" id = "ptest_result_tags" class = "ptest-form-input-spacer" required>
 				<br>
 				<div class = "ptest-form-spacer">Description:</div> <textarea placeholder = "Description" name = "ptest_result_description" id = "ptest_result_description" class = "ptest-form-input-spacer"></textarea><!--<input type = "text"  >-->
-				<div style = "max-width: 90%; min-width: 90%">
-					<label for = "upload_image">
-						<div class = "ptest-form-spacer">Image:</div> 
-						<input style = "min-width:75%; max-width:75%; display: inline-block;" id = "upload_image" type = "text" size = "36" name = "ptest_add_image" value = "http://">
-						<input style = "min-width:15%; max-width: 15%; display:inline-block;" id = "upload_image_button" class = "button" type = "button" value = "Upload Image">
-					</label>
-				</div>
+				<label for = "upload_image">
+					<div class = "ptest-form-spacer">Image:</div> 
+					<input class = "ptest_image_input_spacer" id = "upload_image" type = "text" size = "36" name = "ptest_add_image" value = "http://">
+					<div class = "ptest-image-input-button"><input style = "max-width: 100%; min-width: 100%" id = "upload_image_button" class = "button" type = "button" value = "Upload Image"></span></div>
+				</label>
 				<br><div style = "display: inline-block; width: 87%"></div><input class = "ptest-form-submit" type = "submit" value = "Save">
 			</form>
 			<br>

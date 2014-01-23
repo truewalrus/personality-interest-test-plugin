@@ -233,3 +233,21 @@
 	border-left: 1px solid grey;
 	border-radius: 10px;
 }
+
+.ptest-image-input{
+	margin: 0 auto;
+	max-width: 90%;
+	min-width: 90%;
+}
+
+.ptest_image_input_spacer{
+	max-width: 70%;
+	min-width: 70%;
+}
+
+.ptest-image-input-button{
+	vertical-align: top;
+	min-width: 10%;
+	max-width: 10%;
+	display: inline-block;
+}
