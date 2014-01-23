@@ -29,7 +29,7 @@ function ptest_insert_result($quiz_id, $result){
 	
 	global $wpdb;
 	
-	$data = array('name'=>$result["name"], 'tag'=>$result["tags"], 'description'=>$result["description"], 'quiz_id'=>$quiz_id);
+	$data = array('name'=>$result["name"], 'tag'=>$result["tags"], 'description'=>$result["description"], 'image'=>$result["image"], 'quiz_id'=>$quiz_id );
 	
 	$wpdb->insert($wpdb->prefix . "ptest_results", $data);
 	
@@ -156,7 +156,7 @@ function ptest_update_result($result_id, $result){
 	
 	global $wpdb;
 	
-	$data = array('name'=>$result["name"], 'tag'=>$result["tags"], 'description'=>$result["description"]);
+	$data = array('name'=>$result["name"], 'tag'=>$result["tags"], 'description'=>$result["description"], 'image'=>$result["image"]);
 	
 	$wpdb->update($wpdb->prefix . "ptest_results", $data, array('id' => $result_id));
 }

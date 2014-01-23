@@ -76,6 +76,7 @@
 						quiz_id int,
 						tag tinytext,
 						description text,
+						image text,
 						PRIMARY KEY id (id)
 						);";
 					   

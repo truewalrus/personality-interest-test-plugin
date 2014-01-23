@@ -111,7 +111,7 @@
 		document.getElementById("ptest_result_description").value = "";
 	}
 	
-	function editResult(id, name, tags, description){
+	function editResult(id, name, tags, description, image){
 		document.getElementById('ptest-question-hover').style.display = "block";
 		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("result-header").innerHTML = "Edit Result";
@@ -125,6 +125,7 @@
 		document.getElementById("ptest_result_tags").value = tags;
 		document.getElementById("ptest_result_name").focus();
 		document.getElementById("ptest_result_description").value = description;
+		document.getElementById("upload_image").value = image;
 	}
 	
 	var answerCount = 0;
@@ -360,7 +361,7 @@
 				<td><?php echo $result->name; ?></td>
 				<td><?php echo $result->tag; ?></td>
 				<td><?php echo stripslashes( $result->description ); ?></td>
-				<td><button class = "ptest-modify-button" onclick = "editResult(<?php  echo $result->id . ", '" . $result->name . "', '" . $result->tag . "', '" . $result->description . "'"  ?> )">Edit</button>
+				<td><button class = "ptest-modify-button" onclick = "editResult(<?php  echo $result->id . ", '" . $result->name . "', '" . $result->tag . "', '" . $result->description . "', '" . $result->image . "'" ?> )">Edit</button>
 				<span class = "ptest-separator">|</span>				
 				<form onsubmit = "return confirm('Are you sure you want to delete?');" name = "ptest-result-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post"  style = "display: inline">
 					<input type = "hidden" name = "ptest_result_delete_hidden" value = "Y">
@@ -456,11 +457,9 @@
 				<div class = "ptest-form-spacer">Tags:</div> <input type = "text" placeholder = "tag1, tag2" name = "ptest_result_tags" id = "ptest_result_tags" class = "ptest-form-input-spacer" required>
 				<br>
 				<div class = "ptest-form-spacer">Description:</div> <textarea placeholder = "Description" name = "ptest_result_description" id = "ptest_result_description" class = "ptest-form-input-spacer"></textarea><!--<input type = "text"  >-->
-				<label for = "upload_image">
-					<div class = "ptest-form-spacer">Image:</div> 
-					<input class = "ptest_image_input_spacer" id = "upload_image" type = "text" size = "36" name = "ptest_add_image" value = "http://">
-					<div class = "ptest-image-input-button"><input style = "max-width: 100%; min-width: 100%" id = "upload_image_button" class = "button" type = "button" value = "Upload Image"></span></div>
-				</label>
+				<div class = "ptest-form-spacer">Image:</div> 
+				<input class = "ptest_image_input_spacer" id = "upload_image" type = "text" size = "36" name = "ptest_add_image" value = "http://">
+				<div class = "ptest-image-input-button"><input style = "max-width: 100%; min-width: 100%" id = "upload_image_button" class = "button" type = "button" value = "Upload Image"></span></div>
 				<br><div style = "display: inline-block; width: 87%"></div><input class = "ptest-form-submit" type = "submit" value = "Save">
 			</form>
 			<br>
