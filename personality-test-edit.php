@@ -85,13 +85,15 @@
 		document.getElementById('ptest-hover').style.display = "none";
 		document.getElementById('ptest-hidden-hover').style.display = "none";
 		document.getElementById('ptest-question-hover').style.display = "none";
+		document.getElementById("ptest-add-result").style.display="none";
+		document.getElementById("ptest-edit-quiz").style.display="none";
+		document.getElementById("ptest-show-image").style.display="none";
+		document.getElementById("ptest-add-question").style.display="none";
 	}
 	function editQuiz(){
 		document.getElementById('ptest-hover').style.display = "block";
 		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("ptest-edit-quiz").style.display="block";
-		document.getElementById("ptest-add-result").style.display="none";
-		document.getElementById("ptest-add-question").style.display="none";
 		document.getElementById("ptest_quiz_name_change").focus();
 	}
 	
@@ -102,8 +104,6 @@
 		document.getElementById("ptest-helper-results").innerHTML = "Add a new result to your quiz.  The name of the result is how it will appear at the end of your quiz.<br> Results match with answers by matching tags and counting values. A result can have multiple comma separated tags (ex: tag1, tag2, tag3).<br>The image is an optional upload that can be shown along with the description on completion of a quiz.";
 		document.getElementById("ptest_result_add_hidden").value="add";
 		document.getElementById("ptest-add-result").style.display="block";
-		document.getElementById("ptest-edit-quiz").style.display="none";
-		document.getElementById("ptest-add-question").style.display="none";
 		document.getElementById("ptest_result_name").value = "";
 		document.getElementById("ptest_result_id_hidden").value = "";
 		document.getElementById("ptest_result_tags").value = "";
@@ -119,8 +119,6 @@
 		document.getElementById("ptest-helper-results").innerHTML = "Edit a result's name, tags, description, or image.";
 		document.getElementById("ptest_result_add_hidden").value="edit";
 		document.getElementById("ptest-add-result").style.display="block";
-		document.getElementById("ptest-edit-quiz").style.display="none";
-		document.getElementById("ptest-add-question").style.display="none";
 		document.getElementById("ptest_result_name").value = name;
 		document.getElementById("ptest_result_id_hidden").value = id;
 		document.getElementById("ptest_result_tags").value = tags;
@@ -156,8 +154,6 @@
 		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("ptest-question-header").innerHTML = "Edit Question";
 		document.getElementById("ptest-add-question").style.display="block";
-		document.getElementById("ptest-add-result").style.display="none";
-		document.getElementById("ptest-edit-quiz").style.display="none";
 		document.getElementById("ptest-answers-form").innerHTML = "";
 		answerCount = 0;
 		
@@ -310,14 +306,28 @@
 		document.getElementById('ptest-hidden-hover').style.display = "block";
 		document.getElementById("ptest-question-header").innerHTML = "Add Question";
 		document.getElementById("ptest-add-question").style.display="block";
-		document.getElementById("ptest-add-result").style.display="none";
-		document.getElementById("ptest-edit-quiz").style.display="none";
 		document.getElementById("ptest-answers-form").innerHTML = '';
 		document.getElementById("ptest_question_hidden").value = "add";
 		document.getElementById("ptest_question_question").value = "";
 		document.getElementById("ptest_question_question").focus();
 		answerCount = 0;
 		addNewAnswer();
+	}
+	
+	function viewImage(location){
+		document.getElementById('ptest-no-image-display').style.display = "none";
+		document.getElementById('ptest-image-display').style.display = "none";
+		document.getElementById('ptest-hidden-hover').style.display = "block";
+		document.getElementById('ptest-show-image').style.display = "block";
+		document.getElementById('ptest-question-hover').style.display = "block";
+		
+		if (location == ''){
+			document.getElementById('ptest-no-image-display').style.display = "block";
+		}
+		else{
+			document.getElementById('ptest-image-display').style.display="inline";
+			document.getElementById('ptest-image-display').src = location;
+		}
 	}
 
 </script>
@@ -349,8 +359,9 @@
 			<tr>
 				<th style = "max-width: 5%; width: 5%">#</th>
 				<th style = "max-width: 30%; width: 30%">Result Name</th>
-				<th style = "max-width: 15%: width: 15%" style = "max-width: 15%: width: 15%">Tags</th>
-				<th style = "max-width: 35%: width: 35%" style = "max-width: 35%: width: 35%">Description</th>
+				<th style = "max-width: 15%; width: 15%">Tags</th>
+				<th style = "max-width: 30%; width: 30%">Description</th>
+				<th style = "max-width: 5%; width: 5%">Image</th>
 				<th style = "max-width: 15%; width: 15%">Options</th>
 			</tr>
 		<?php 
@@ -362,6 +373,7 @@
 				<td><?php echo $result->name; ?></td>
 				<td><?php echo $result->tag; ?></td>
 				<td><?php echo stripslashes( $result->description ); ?></td>
+				<td><image class = "ptest-image-thumbnail" onclick = viewImage("<?php echo $result->image ?>") src = "<?php echo $result->image ?>">
 				<td><button class = "ptest-modify-button" onclick = "editResult(<?php  echo $result->id . ", '" . $result->name . "', '" . $result->tag . "', '" . $result->description . "', '" . $result->image . "'" ?> )">Edit</button>
 				<span class = "ptest-separator">|</span>				
 				<form onsubmit = "return confirm('Are you sure you want to delete?');" name = "ptest-result-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post"  style = "display: inline">
@@ -378,7 +390,7 @@
 		<table class = "ptest-quiz-table">
 			<tr>
 				<th style = "width: 5%; max-width: 5%">#</th>
-				<th style = "width: 30%; max-width: 30%; overflow; hidden;">Question</th>
+				<th style = "width: 30%; max-width: 30%;">Question</th>
 				<th style = "width: 50%; max-width: 50%">Answers</th>
 				<th style = "width: 15%; max-width: 15%">Options</th>
 			</tr>
@@ -480,6 +492,11 @@
 				<div id = "ptest-answers-form"></div>
 				<input class = "ptest-form-submit" type = "submit" value = "Save">
 			</form>
+		</div>
+		
+		<div id = "ptest-show-image" style = "display:none">
+			<span id = "ptest-no-image-display" style = "display:none">No Image</span>
+			<image src = "" id = "ptest-image-display" style = "display:none">
 		</div>
 	</div>
 	
