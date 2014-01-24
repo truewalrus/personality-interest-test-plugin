@@ -30,7 +30,7 @@
 }
 
 .ptest-question-hover{
-	overflow-y: scroll;
+	overflow-y: auto;
 	max-height: 80%;
 	position: fixed;
 	top: 10%;
@@ -250,4 +250,8 @@
 	min-width: 10%;
 	max-width: 10%;
 	display: inline-block;
+}
+
+#ptest-show-image{
+	padding: 15px;
 }
