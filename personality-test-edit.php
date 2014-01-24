@@ -373,7 +373,7 @@
 				<td><?php echo $result->name; ?></td>
 				<td><?php echo $result->tag; ?></td>
 				<td><?php echo stripslashes( $result->description ); ?></td>
-				<td><button onclick = viewImage("<?php echo $result->image?>")>P</button>
+				<td><image class = "ptest-image-thumbnail" onclick = viewImage("<?php echo $result->image ?>") src = "<?php echo $result->image ?>">
 				<td><button class = "ptest-modify-button" onclick = "editResult(<?php  echo $result->id . ", '" . $result->name . "', '" . $result->tag . "', '" . $result->description . "', '" . $result->image . "'" ?> )">Edit</button>
 				<span class = "ptest-separator">|</span>				
 				<form onsubmit = "return confirm('Are you sure you want to delete?');" name = "ptest-result-delete" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post"  style = "display: inline">

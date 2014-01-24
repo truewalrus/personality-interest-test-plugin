@@ -255,3 +255,11 @@
 #ptest-show-image{
 	padding: 15px;
 }
+
+.ptest-image-thumbnail{
+	max-width: 95%;
+}
+
+.ptest-image-thumbnail:hover{
+	cursor: pointer;
+}
