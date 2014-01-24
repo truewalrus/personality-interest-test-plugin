@@ -25,7 +25,11 @@
 	<div class = "ptest-display-top">
 		<a href = "<?php echo add_query_arg( array('edit' => 'quiz'), $_SERVER["REQUEST_URI"] ); ?>"> Back </a>
 		<h2>Quiz Results Page</h2>
-		<img src="<?php echo plugins_url( "images/dog.jpg", __FILE__ ); ?>">
+		<ul>
+			<li>Use [result] to display the result's name.</li>
+			<li>Use [description] to display the result's description.</li>
+			<li>Use [imageurl] for a link to the result's image.</li>
+		</ul>
 		<form name = "ptest_result_page_edit" action = "<?php echo $_SERVER["REQUEST_URI"]; ?>" method = "post">
 			<input type="hidden" name="ptest_edit_result_page" value="Y">
 			<textarea class="ptest-results-page-edit" name="ptest_results_page" id="ptest-results-page"><?php echo stripslashes( htmlspecialchars( $quiz[0]->results_page ) ); ?></textarea>
