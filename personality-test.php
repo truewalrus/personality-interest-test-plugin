@@ -1,10 +1,10 @@
 <?php
 /* 
-	Plugin Name: Personality Test
+	Plugin Name: TRPtest
 	Description: Plugin for creating easily modifiable Personality, Interest, or Which Character are You? tests and quizzes.
-	Author: J. Levy and B. Bower
+	Author: TruRek
 	Version: 1.0 
-	Author URI: http://www.trurek.com
+	Author URI: WIP
 	*/  
 
 	
@@ -26,7 +26,7 @@
       
     function ptest_admin_actions() {  
 		global $ptest_prefix;
-        add_menu_page("Personality Test", "Ptest Dashboard", 'manage_options', $ptest_prefix . "Personality_Test", "ptest_admin");
+        add_menu_page("Personality Test", "TRPtest Dashboard", 'manage_options', $ptest_prefix . "Personality_Test", "ptest_admin");
     }  
     add_action('admin_menu', 'ptest_admin_actions');
 	
@@ -38,21 +38,22 @@
 	add_action('admin_menu', 'ptest_quiz_main_actions');
 	
 	function ptest_add_stylesheet(){
-		wp_register_style('personality-test-style', plugins_url('personality-test/css/personality-test-style.css'));
+		wp_register_style('personality-test-style', plugins_url('trpt-personality-test/css/personality-test-style.css'));
 		wp_enqueue_style('personality-test-style');
 	}
 	add_action('admin_enqueue_scripts', 'ptest_add_stylesheet');
 	
 	function ptest_add_frontend_stylesheet(){
-		wp_register_style('personality-test-frontend-style', plugins_url('personality-test/css/personality-test-frontend-style.css'));
+		wp_register_style('personality-test-frontend-style', plugins_url('trpt-personality-test/css/personality-test-frontend-style.css'));
 		wp_enqueue_style('personality-test-frontend-style');
 	}
 	add_action('wp_enqueue_scripts', 'ptest_add_frontend_stylesheet');
 	
 	function ptest_admin_scripts(){
-		if (isset($_GET['page']) && $_GET['page'] == 'Quiz'){
+		global $ptest_prefix;
+		if (isset($_GET['page']) && $_GET['page'] == $ptest_prefix . 'Quiz'){
 			wp_enqueue_media();
-			wp_register_script('personality-test-admin.js', plugins_url().'/personality-test/personality-test-admin.js', array('jquery'));
+			wp_register_script('personality-test-admin.js', plugins_url().'/trpt-personality-test/personality-test-admin.js', array('jquery'));
 			wp_enqueue_script('personality-test-admin.js');
 		}
 	}
