@@ -10,6 +10,8 @@
 	
 	include('personality-test-db-functions.php');
 	
+	$ptest_prefix = "trpt_";
+	
 	function ptest_admin() {  
         include('personality-test-main.php');  
     } 
@@ -23,13 +25,15 @@
 	}
       
     function ptest_admin_actions() {  
-        add_menu_page("Personality Test", "Ptest Dashboard", 'manage_options', "Personality_Test", "ptest_admin");
+		global $ptest_prefix;
+        add_menu_page("Personality Test", "Ptest Dashboard", 'manage_options', $ptest_prefix . "Personality_Test", "ptest_admin");
     }  
     add_action('admin_menu', 'ptest_admin_actions');
 	
 	function ptest_quiz_main_actions() {
-		add_submenu_page("Personality_Test", "Quiz List", "Quiz List", 'manage_options', "Quiz", "ptest_quiz_main");
-		add_submenu_page("Personality_Test", "Help", "Help", 'manage_options', "Help", "ptest_help");
+		global $ptest_prefix;
+		add_submenu_page($ptest_prefix . "Personality_Test", "Quiz List", "Quiz List", 'manage_options', $ptest_prefix . "Quiz", "ptest_quiz_main");
+		add_submenu_page($ptest_prefix . "Personality_Test", "Help", "Help", 'manage_options', $ptest_prefix . "Help", "ptest_help");
 	}
 	add_action('admin_menu', 'ptest_quiz_main_actions');
 	
